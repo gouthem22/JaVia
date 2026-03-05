@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import DeviceMockup from "@/components/DeviceMockup";
@@ -14,6 +14,21 @@ export default function Home() {
   const genfessPortfolioRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const fruithouseRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Slow down the video for ambient cinematic feel
+  const handleVideoReady = useCallback(() => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.playbackRate = 0.4;
+    }
+  }, []);
+
+  useEffect(() => {
+    // Set playback rate once mounted
+    if (heroVideoRef.current) {
+      heroVideoRef.current.playbackRate = 0.4;
+    }
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -104,30 +119,62 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center">
       <DeviceMockup />
       {/* SECTION 1 — HERO */}
-      <section id="home" className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-dot-black gradient-mask -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-slate-500/5 rounded-full blur-[120px] -z-10" />
+      <section id="home" className="relative w-full min-h-screen flex items-end px-6 md:px-12 pb-12 md:pb-16 overflow-hidden bg-black">
+        {/* Video Background — slowed, scaled and blurred for ambient cinematic feel */}
+        <video
+          ref={heroVideoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          onCanPlay={handleVideoReady}
+          onPlay={handleVideoReady}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ zIndex: 0, transform: "scale(1.15)", filter: "blur(1px) brightness(0.5) saturate(0.7)" }}
+        >
+          <source src="/bgvideo.mp4" type="video/mp4" />
+        </video>
+        {/* Dark Gradient Overlay for smooth blending */}
+        <div className="absolute inset-0" style={{ zIndex: 1, background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.5) 100%)" }} />
 
-        <div className="max-w-4xl text-center space-y-8">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight text-slate-900">
-            JaVia — Powering <span className="underline decoration-slate-300">Enterprise</span> Innovation
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            We build scalable digital products and enterprise-grade web platforms that drive measurable growth.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link
-              href="#products"
-              className="px-8 py-4 bg-slate-900 hover:bg-black text-white font-semibold rounded-full transition-all duration-300 shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1"
+        {/* Hero Content — Left Aligned */}
+        <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8" style={{ zIndex: 2 }}>
+          {/* Left Text Block */}
+          <div className="space-y-6 max-w-2xl">
+            <h1
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-normal leading-[0.9] tracking-tight uppercase"
+              style={{ fontFamily: "var(--font-bebas)", color: "#9ca3af" }}
             >
-              Explore Our Products
-            </Link>
-            <Link
-              href="#success"
-              className="px-8 py-4 border border-slate-200 hover:border-slate-300 bg-white text-slate-900 font-semibold rounded-full transition-all duration-300 hover:bg-slate-50"
+              JaVia — Powering<br />
+              <span style={{ color: "#ffffff" }}>Enterprise</span><br />
+              Innovation
+            </h1>
+            <p className="text-base md:text-lg text-white/70 max-w-lg leading-relaxed">
+              We build scalable digital products and enterprise-grade web platforms that drive measurable growth.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start gap-4 pt-2">
+              <Link
+                href="#products"
+                className="px-8 py-4 border border-white/30 text-white font-semibold tracking-widest uppercase text-sm rounded-full transition-all duration-300 hover:bg-white hover:text-black"
+              >
+                View Projects
+              </Link>
+              <Link
+                href="#success"
+                className="px-8 py-4 border border-white/30 text-white font-semibold tracking-widest uppercase text-sm rounded-full transition-all duration-300 hover:bg-white hover:text-black"
+              >
+                Get in Touch
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Info Block */}
+          <div className="hidden md:flex flex-col items-end gap-4 text-right">
+            <span
+              className="text-white/50 text-xs tracking-[0.3em] uppercase"
             >
-              View Client Success
-            </Link>
+              Scroll Down
+            </span>
           </div>
         </div>
       </section>

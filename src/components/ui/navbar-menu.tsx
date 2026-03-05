@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const transition: any = {
     type: "spring",
@@ -19,12 +20,14 @@ export const MenuItem = ({
     item,
     children,
     href,
+    isDark = true,
 }: {
     setActive: (item: string) => void;
     active: string | null;
     item: string;
     children?: React.ReactNode;
     href?: string;
+    isDark?: boolean;
 }) => {
     const handleClick = () => {
         if (href) {
@@ -38,8 +41,10 @@ export const MenuItem = ({
                 onClick={handleClick}
                 transition={{ duration: 0.3 }}
                 className={cn(
-                    "cursor-pointer transition-colors font-medium",
-                    active === item ? "text-slate-900 font-bold" : "text-slate-500 hover:text-slate-900"
+                    "cursor-pointer transition-colors duration-500 font-medium",
+                    isDark
+                        ? (active === item ? "text-white font-bold" : "text-white/70 hover:text-white")
+                        : (active === item ? "text-slate-900 font-bold" : "text-slate-500 hover:text-slate-900")
                 )}
             >
                 {item}
@@ -55,7 +60,12 @@ export const MenuItem = ({
                             <motion.div
                                 transition={transition}
                                 layoutId="active"
-                                className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+                                className={cn(
+                                    "rounded-2xl overflow-hidden border backdrop-blur-xl",
+                                    isDark
+                                        ? "bg-black/60 border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                                        : "bg-white/80 border-slate-200 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+                                )}
                             >
                                 <motion.div
                                     layout
@@ -75,15 +85,59 @@ export const MenuItem = ({
 export const Menu = ({
     setActive,
     children,
+    isDark = true,
 }: {
     setActive: (item: string | null) => void;
     children: React.ReactNode;
+    isDark?: boolean;
 }) => {
     return (
         <nav
             onMouseLeave={() => setActive(null)}
-            className="relative rounded-full border border-slate-200 bg-white/80 backdrop-blur-md shadow-input flex justify-center space-x-4 px-8 py-6 "
+            className={cn(
+                "relative rounded-full border backdrop-blur-xl flex justify-center space-x-4 px-8 py-6 transition-all duration-500",
+                isDark
+                    ? "border-white/15 bg-white/5 shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.15),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.15),inset_0_0_6px_6px_rgba(255,255,255,0.04),0_0_12px_rgba(255,255,255,0.06)]"
+                    : "border-slate-200/60 bg-white/60 shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.06),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.5),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.5),inset_0_0_6px_6px_rgba(255,255,255,0.1)]"
+            )}
         >
+            {/* Liquid glass SVG filter */}
+            <svg className="hidden">
+                <defs>
+                    <filter
+                        id="nav-glass"
+                        x="0%"
+                        y="0%"
+                        width="100%"
+                        height="100%"
+                        colorInterpolationFilters="sRGB"
+                    >
+                        <feTurbulence
+                            type="fractalNoise"
+                            baseFrequency="0.05 0.05"
+                            numOctaves="1"
+                            seed="1"
+                            result="turbulence"
+                        />
+                        <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+                        <feDisplacementMap
+                            in="SourceGraphic"
+                            in2="blurredNoise"
+                            scale="70"
+                            xChannelSelector="R"
+                            yChannelSelector="B"
+                            result="displaced"
+                        />
+                        <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur" />
+                        <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+                    </filter>
+                </defs>
+            </svg>
+            {/* Glass distortion layer */}
+            <div
+                className="absolute inset-0 rounded-full overflow-hidden -z-10"
+                style={{ backdropFilter: 'url("#nav-glass") blur(16px)' }}
+            />
             {children}
         </nav>
     );
@@ -94,11 +148,13 @@ export const ProductItem = ({
     description,
     href,
     src,
+    isDark = true,
 }: {
     title: string;
     description: string;
     href: string;
     src: string;
+    isDark?: boolean;
 }) => {
     return (
         <a href={href} className="flex space-x-2">
@@ -110,10 +166,16 @@ export const ProductItem = ({
                 className="flex-shrink-0 rounded-md shadow-2xl grayscale hover:grayscale-0 transition-all duration-300"
             />
             <div>
-                <h4 className="text-xl font-bold mb-1 text-slate-900">
+                <h4 className={cn(
+                    "text-xl font-bold mb-1 transition-colors duration-500",
+                    isDark ? "text-white" : "text-slate-900"
+                )}>
                     {title}
                 </h4>
-                <p className="text-neutral-700 text-sm max-w-[10rem] dark:text-neutral-300">
+                <p className={cn(
+                    "text-sm max-w-[10rem] transition-colors duration-500",
+                    isDark ? "text-white/60" : "text-slate-600"
+                )}>
                     {description}
                 </p>
             </div>
@@ -121,13 +183,16 @@ export const ProductItem = ({
     );
 };
 
-import { cn } from "@/lib/utils";
-
-export const HoveredLink = ({ children, ...rest }: any) => {
+export const HoveredLink = ({ children, isDark = true, ...rest }: any) => {
     return (
         <a
             {...rest}
-            className="text-slate-600 hover:text-slate-900 transition-colors cursor-pointer"
+            className={cn(
+                "transition-colors duration-500 cursor-pointer",
+                isDark
+                    ? "text-white/60 hover:text-white"
+                    : "text-slate-600 hover:text-slate-900"
+            )}
         >
             {children}
         </a>
