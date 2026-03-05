@@ -160,7 +160,7 @@ export default function Home() {
                 View Projects
               </Link>
               <Link
-                href="#success"
+                href="#about"
                 className="px-8 py-4 border border-white/30 text-white font-semibold tracking-widest uppercase text-sm rounded-full transition-all duration-300 hover:bg-white hover:text-black"
               >
                 Get in Touch
@@ -410,9 +410,14 @@ export default function Home() {
           </div>
 
           <div className="pt-12">
-            <button className="px-12 py-5 bg-slate-900 text-white font-bold rounded-full text-lg hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-[0_15px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
+            <a
+              href="https://wa.me/919788995924?text=Hi%20JaVia!%20%F0%9F%9A%80%20I'm%20looking%20to%20build%20a%20high-performance%20digital%20product%20and%20would%20love%20to%20discuss%20how%20your%20engineering%20team%20can%20bring%20my%20vision%20to%20life.%20Let's%20connect!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-12 py-5 bg-slate-900 text-white font-bold rounded-full text-lg hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-[0_15px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
+            >
               Schedule a Consultation
-            </button>
+            </a>
           </div>
         </div>
       </section>
