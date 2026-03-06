@@ -29,21 +29,9 @@ export function Navbar({ className }: { className?: string }) {
             <Menu setActive={setActive} isDark={isDark}>
                 <MenuItem setActive={setActive} active={active} item="Home" href="#home" isDark={isDark} />
                 <MenuItem setActive={setActive} active={active} item="Products" isDark={isDark}>
-                    <div className="text-sm grid grid-cols-1 md:grid-cols-2 gap-10 p-4">
-                        <ProductItem
-                            title="Jayple"
-                            href="#products"
-                            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=140&h=70&auto=format&fit=crop"
-                            description="A hair salon booking application that simplifies appointment scheduling."
-                            isDark={isDark}
-                        />
-                        <ProductItem
-                            title="Genfess"
-                            href="#genfess"
-                            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=140&h=70&auto=format&fit=crop"
-                            description="A private social media platform for college students."
-                            isDark={isDark}
-                        />
+                    <div className="flex flex-col space-y-4 text-sm">
+                        <HoveredLink href="#jayple" isDark={isDark}>Jayple</HoveredLink>
+                        <HoveredLink href="#genfess" isDark={isDark}>Genfess</HoveredLink>
                     </div>
                 </MenuItem>
                 <MenuItem setActive={setActive} active={active} item="Portfolio" isDark={isDark}>
@@ -56,7 +44,7 @@ export function Navbar({ className }: { className?: string }) {
                     <div className="flex flex-col space-y-4 text-sm">
                         <HoveredLink href="#success" isDark={isDark}>Racksmadurai</HoveredLink>
                         <HoveredLink href="#fruithouse" isDark={isDark}>Fruit House</HoveredLink>
-
+                        <HoveredLink href="#vks" isDark={isDark}>VKS Decoration</HoveredLink>
                     </div>
                 </MenuItem>
                 <MenuItem setActive={setActive} active={active} item="About" href="#about" isDark={isDark} />

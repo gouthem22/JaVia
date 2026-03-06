@@ -19,15 +19,6 @@ export default function DeviceMockup() {
         }, (context) => {
             const { isDesktop } = context.conditions as any;
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "body",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: true,
-                }
-            });
-
             // ── Screen activation helpers ──
             const phoneStates = {
                 products: ".phone-products-state",
@@ -39,6 +30,7 @@ export default function DeviceMockup() {
                 genfessPortfolio: ".laptop-genfess-portfolio-state",
                 case: ".laptop-case-state",
                 fruithouse: ".laptop-fruithouse-state",
+                vks: ".laptop-vks-state",
             };
 
             const activatePhoneScreen = (activeKey: keyof typeof phoneStates) => {
@@ -46,9 +38,9 @@ export default function DeviceMockup() {
                 Object.keys(phoneStates).forEach((key) => {
                     const k = key as keyof typeof phoneStates;
                     if (k === activeKey) {
-                        tween.to(phoneStates[k], { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0);
+                        tween.to(phoneStates[k], { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
                     } else {
-                        tween.to(phoneStates[k], { opacity: 0, y: 20, duration: 0.5, ease: "power2.in" }, 0);
+                        tween.to(phoneStates[k], { opacity: 0, y: 20, duration: 0.3, ease: "power2.in" }, 0);
                     }
                 });
                 return tween;
@@ -59,148 +51,322 @@ export default function DeviceMockup() {
                 Object.keys(laptopStates).forEach((key) => {
                     const k = key as keyof typeof laptopStates;
                     if (k === activeKey) {
-                        tween.to(laptopStates[k], { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0);
+                        tween.to(laptopStates[k], { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
                     } else {
-                        tween.to(laptopStates[k], { opacity: 0, y: 20, duration: 0.5, ease: "power2.in" }, 0);
+                        tween.to(laptopStates[k], { opacity: 0, y: 20, duration: 0.3, ease: "power2.in" }, 0);
                     }
                 });
                 return tween;
             };
 
+            // ── Position values (Reduced weightage for better alignment) ──
+            const phoneRight = isDesktop ? 320 : 80;
+            const phoneLeft = isDesktop ? -320 : -80;
+            const laptopRight = isDesktop ? 350 : 100;
+            const laptopLeft = isDesktop ? -350 : -100;
+            const laptopScale = isDesktop ? 0.60 : 0.55;
+
             // ── Initial states ──
-            // Phone: hidden, positioned on the right for Jayple entrance
-            tl.set(phoneRef.current, {
+            // Phone: hidden, positioned far off-screen RIGHT for slide-in entrance
+            gsap.set(phoneRef.current, {
                 opacity: 0,
-                x: isDesktop ? 450 : 120,
-                y: 50,
+                x: isDesktop ? 900 : 400,
+                y: 0,
                 scale: 0.85,
                 rotateY: -15
             });
 
             // Laptop: hidden completely
-            tl.set(laptopRef.current, {
+            gsap.set(laptopRef.current, {
                 opacity: 0,
-                scale: 0.6,
+                scale: 0.5,
                 x: 0,
                 y: 0,
             });
 
             // Set initial screen states
-            tl.add(activatePhoneScreen("products"), 0);
-            tl.add(activateLaptopScreen("jayplePortfolio"), 0);
+            activatePhoneScreen("products");
+            activateLaptopScreen("jayplePortfolio");
 
             // ═══════════════════════════════════════
             // PHONE SECTIONS
             // ═══════════════════════════════════════
 
-            // JAYPLE — Phone fades in on the right
-            tl.addLabel("jayple", 3);
-            tl.to(phoneRef.current, {
-                duration: 3,
-                x: isDesktop ? 450 : 120,
-                y: -30,
-                rotateY: -15,
+            // JAYPLE — Phone slides in from off-screen RIGHT to the right column
+            // Triggered when Jayple description text is visible (not just heading)
+            gsap.to(phoneRef.current, {
+                x: phoneRight,
+                y: 0,
+                rotateY: isDesktop ? -4 : -2,
+                rotateX: 1,
                 scale: 0.9,
                 opacity: 1,
-                ease: "power2.out"
-            }, "jayple");
+                overwrite: "auto",
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#jayple",
+                    start: "top 40%",
+                    end: "top 10%",
+                    scrub: 1.0,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
 
-            // GENFESS — Phone slides to left
-            tl.addLabel("genfess", 8);
-            tl.to(phoneRef.current, {
-                duration: 4,
-                x: isDesktop ? -450 : -120,
-                y: 30,
-                rotateY: 15,
-                ease: "power2.inOut"
-            }, "genfess");
-            tl.add(activatePhoneScreen("genfess"), "genfess");
-
-            // ═══════════════════════════════════════
-            // MORPH: PHONE → LAPTOP
-            // ═══════════════════════════════════════
-
-            tl.addLabel("morph", 12);
-
-            // Phone fades out and shrinks
-            tl.to(phoneRef.current, {
-                duration: 2,
-                opacity: 0,
-                scale: 0.5,
-                y: 60,
-                ease: "power2.in"
-            }, "morph");
-
-            // Laptop fades in and scales up, positioned for Jayple Portfolio (right)
-            tl.to(laptopRef.current, {
-                duration: 2,
+            // GENFESS — Phone glides from right to LEFT column
+            // Triggered at the exact Genfess content block
+            gsap.fromTo(phoneRef.current, {
+                x: phoneRight,
+                rotateY: isDesktop ? -4 : -2, // MATCH PREVIOUS END
+                rotateX: 1,
+                scale: 0.9,
                 opacity: 1,
-                scale: isDesktop ? 0.78 : 0.6,
-                x: isDesktop ? 480 : 140,
+            }, {
+                x: phoneLeft,
+                y: 0,
+                rotateY: isDesktop ? 4 : 2,
+                rotateX: 1,
+                scale: 0.9,
+                overwrite: "auto",
+                immediateRender: false,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#genfess",
+                    start: "top 90%", // Starts sooner as the section enters the frame
+                    end: "top 30%",
+                    scrub: 1.0,      // Matches Jayple entry speed
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
+
+            // Screen state toggle for Genfess phone
+            ScrollTrigger.create({
+                trigger: "#genfess",
+                start: "top 50%",
+                onEnter: () => activatePhoneScreen("genfess"),
+                onLeaveBack: () => activatePhoneScreen("products"),
+                invalidateOnRefresh: true,
+            });
+
+            // ═══════════════════════════════════════
+            // PHONE EXIT — Fades at the END of Genfess block
+            // Uses fromTo for clean reverse on backtrack
+            // ═══════════════════════════════════════
+
+            // PHONE EXIT — Sharp fade and slide LEFT at the END of Genfess block
+            gsap.fromTo(phoneRef.current, {
+                opacity: 1,
+                scale: 0.9,
+                x: phoneLeft,
+                y: 0,
+                rotateY: isDesktop ? 4 : 2,
+            }, {
+                opacity: 0,
+                scale: 0.6,
+                x: isDesktop ? -800 : -400, // Sharper exit further left
                 y: -10,
-                ease: "power2.out"
-            }, "morph+=0.5");
+                rotateY: isDesktop ? 8 : 4,
+                overwrite: "auto",
+                immediateRender: false,
+                ease: "power2.in",
+                scrollTrigger: {
+                    trigger: "#genfess",
+                    start: "bottom 90%",
+                    end: "bottom 50%",
+                    scrub: 0.4,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
+
+            // Laptop fades in and positions to the RIGHT for Jayple Portfolio
+            // LAPTOP ENTRY — Quickly glides in from RIGHT for Jayple Portfolio
+            gsap.to(laptopRef.current, {
+                opacity: 1,
+                scale: laptopScale,
+                x: laptopRight,
+                y: 0,
+                rotateY: isDesktop ? -4 : -2,
+                rotateX: 1,
+                overwrite: "auto",
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#jayple-portfolio",
+                    start: "top 95%",
+                    end: "top 60%",
+                    scrub: 0.4,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
 
             // ═══════════════════════════════════════
             // LAPTOP SECTIONS
             // ═══════════════════════════════════════
 
-            // JAYPLE PORTFOLIO — Laptop on the right
-            tl.addLabel("jayplePortfolio", 14);
-            tl.to(laptopRef.current, {
-                duration: 4,
-                x: isDesktop ? 480 : 140,
-                y: -10,
-                rotateY: isDesktop ? -8 : -3,
-                scale: isDesktop ? 0.78 : 0.6,
-                ease: "power2.inOut"
-            }, "jayplePortfolio");
+            // GENFESS PORTFOLIO — Laptop glides from right to LEFT
+            gsap.fromTo(laptopRef.current, {
+                x: laptopRight,
+                rotateY: isDesktop ? -4 : -2, // MATCH PREVIOUS END
+                rotateX: 1,
+                scale: laptopScale,
+                opacity: 1,
+            }, {
+                x: laptopLeft,
+                y: 0,
+                rotateY: isDesktop ? 4 : 2,
+                rotateX: 1,
+                scale: laptopScale,
+                overwrite: "auto",
+                immediateRender: false,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#genfess-portfolio",
+                    start: "top 80%",
+                    end: "top 25%",
+                    scrub: 1.5,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
 
-            // GENFESS PORTFOLIO — Laptop slides to left
-            tl.addLabel("genfessPortfolio", 19);
-            tl.to(laptopRef.current, {
-                duration: 4,
-                x: isDesktop ? -480 : -140,
-                y: 20,
-                rotateY: isDesktop ? 8 : 3,
-                scale: isDesktop ? 0.78 : 0.6,
-                ease: "power2.inOut"
-            }, "genfessPortfolio");
-            tl.add(activateLaptopScreen("genfessPortfolio"), "genfessPortfolio");
+            // Screen state toggle for Genfess Portfolio
+            ScrollTrigger.create({
+                trigger: "#genfess-portfolio",
+                start: "top 40%",
+                onEnter: () => activateLaptopScreen("genfessPortfolio"),
+                onLeaveBack: () => activateLaptopScreen("jayplePortfolio"),
+                invalidateOnRefresh: true,
+            });
 
-            // CASE STUDY — RACKSMADURAI (Right)
-            tl.addLabel("cases", 25);
-            tl.to(laptopRef.current, {
-                duration: 4,
-                x: isDesktop ? 480 : 140,
-                y: 10,
-                rotateY: isDesktop ? -10 : -4,
-                scale: isDesktop ? 0.78 : 0.6,
-                ease: "power2.inOut"
-            }, "cases");
-            tl.add(activateLaptopScreen("case"), "cases");
+            // CASE STUDY — RACKSMADURAI — Laptop glides from left to RIGHT
+            gsap.fromTo(laptopRef.current, {
+                x: laptopLeft,
+                rotateY: isDesktop ? 4 : 2, // MATCH PREVIOUS END
+                rotateX: 1,
+                scale: laptopScale,
+                opacity: 1,
+            }, {
+                x: laptopRight,
+                y: 0,
+                rotateY: isDesktop ? -4 : -2,
+                rotateX: 1,
+                scale: laptopScale,
+                overwrite: "auto",
+                immediateRender: false,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#success",
+                    start: "top 80%",
+                    end: "top 25%",
+                    scrub: 1.5,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
 
-            // CASE STUDY — FRUIT HOUSE (Left)
-            tl.addLabel("fruithouse", 30);
-            tl.to(laptopRef.current, {
-                duration: 4,
-                x: isDesktop ? -480 : -140,
-                y: 20,
-                rotateY: isDesktop ? 8 : 3,
-                scale: isDesktop ? 0.78 : 0.6,
-                ease: "power2.inOut"
-            }, "fruithouse");
-            tl.add(activateLaptopScreen("fruithouse"), "fruithouse");
+            // Screen state toggle for Racksmadurai
+            ScrollTrigger.create({
+                trigger: "#success",
+                start: "top 40%",
+                onEnter: () => activateLaptopScreen("case"),
+                onLeaveBack: () => activateLaptopScreen("genfessPortfolio"),
+                invalidateOnRefresh: true,
+            });
 
-            // EXIT — Laptop fades out after Fruit House (before About)
-            tl.addLabel("laptopExit", 35);
-            tl.to(laptopRef.current, {
-                duration: 2,
+            // CASE STUDY — FRUIT HOUSE — Laptop glides from right to LEFT
+            gsap.fromTo(laptopRef.current, {
+                x: laptopRight,
+                rotateY: isDesktop ? -4 : -2, // MATCH PREVIOUS END
+                rotateX: 1,
+                scale: laptopScale,
+                opacity: 1,
+            }, {
+                x: laptopLeft,
+                y: 0,
+                rotateY: isDesktop ? 4 : 2,
+                rotateX: 1,
+                scale: laptopScale,
+                overwrite: "auto",
+                immediateRender: false,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#fruithouse",
+                    start: "top 80%",
+                    end: "top 25%",
+                    scrub: 1.5,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
+
+            // Screen state toggle for Fruit House
+            ScrollTrigger.create({
+                trigger: "#fruithouse",
+                start: "top 40%",
+                onEnter: () => activateLaptopScreen("fruithouse"),
+                onLeaveBack: () => activateLaptopScreen("case"),
+                invalidateOnRefresh: true,
+            });
+
+            // CASE STUDY — VKS DECORATION — Laptop glides from left to RIGHT
+            gsap.fromTo(laptopRef.current, {
+                x: laptopLeft,
+                rotateY: isDesktop ? 4 : 2, // MATCH PREVIOUS END
+                rotateX: 1,
+                scale: laptopScale,
+                opacity: 1,
+            }, {
+                x: laptopRight,
+                y: 0,
+                rotateY: isDesktop ? -4 : -2,
+                rotateX: 1,
+                scale: laptopScale,
+                opacity: 1,
+                immediateRender: false,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#vks",
+                    start: "top 80%",
+                    end: "top 25%",
+                    scrub: 1.5,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
+
+            // Screen state toggle for VKS Decoration
+            ScrollTrigger.create({
+                trigger: "#vks",
+                start: "top 40%",
+                onEnter: () => activateLaptopScreen("vks"),
+                onLeaveBack: () => activateLaptopScreen("fruithouse"),
+                invalidateOnRefresh: true,
+            });
+
+            // EXIT — Laptop glides away to the RIGHT after VKS content is finished
+            gsap.fromTo(laptopRef.current, {
+                x: laptopRight,
+                opacity: 1,
+                rotateY: isDesktop ? -4 : -2,
+            }, {
                 opacity: 0,
-                scale: 0.5,
-                y: 80,
-                ease: "power2.in"
-            }, "laptopExit");
+                scale: 0.55,
+                x: isDesktop ? 1000 : 600,
+                y: 10,
+                rotateY: 0,
+                immediateRender: false,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#vks",
+                    start: "bottom 85%",
+                    end: "bottom 10%",
+                    scrub: 1.5,
+                    invalidateOnRefresh: true,
+                    fastScrollEnd: true,
+                }
+            });
         });
 
         return () => mm.revert();
@@ -340,6 +506,15 @@ export default function DeviceMockup() {
                             <img
                                 src="/fruithouse.png"
                                 alt="Fruit House"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
+                        {/* CASE STUDY — VKS Decoration */}
+                        <div className="screen-state laptop-vks-state absolute inset-0 opacity-0 translate-y-5">
+                            <img
+                                src="/vks.png"
+                                alt="VKS Decoration"
                                 className="w-full h-full object-cover"
                             />
                         </div>

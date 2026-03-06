@@ -14,6 +14,7 @@ export default function Home() {
   const genfessPortfolioRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const fruithouseRef = useRef<HTMLDivElement>(null);
+  const vksRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   // Slow down the video for ambient cinematic feel
@@ -34,7 +35,7 @@ export default function Home() {
     gsap.registerPlugin(ScrollTrigger);
 
     // Initial hidden state
-    gsap.set([jaypleRef.current, genfessRef.current, jayplePortfolioRef.current, genfessPortfolioRef.current, successRef.current, fruithouseRef.current], { opacity: 0, y: 40 });
+    gsap.set([jaypleRef.current, genfessRef.current, jayplePortfolioRef.current, genfessPortfolioRef.current, successRef.current, fruithouseRef.current, vksRef.current], { opacity: 0, y: 40 });
 
     // Jayple Reveal
     gsap.to(jaypleRef.current, {
@@ -113,6 +114,19 @@ export default function Home() {
         toggleActions: "play none none reverse"
       }
     });
+
+    // VKS Decoration Reveal
+    gsap.to(vksRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#vks",
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
   }, []);
 
   return (
@@ -183,7 +197,7 @@ export default function Home() {
       <section id="products" className="w-full py-24 md:py-32 px-4 bg-secondary-bg">
         <div className="max-w-6xl mx-auto space-y-[40vh]">
           {/* Jayple */}
-          <div ref={jaypleRef} className="grid md:grid-cols-2 gap-12 items-center">
+          <div id="jayple" ref={jaypleRef} className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Jayple</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
@@ -342,6 +356,11 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            <div className="pt-4">
+              <a href="https://www.racksmadurai.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
+                Explore Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
           </div>
           {/* Removed Success Story placeholder */}
           <div className="hidden md:block" />
@@ -381,7 +400,55 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            <div className="pt-4">
+              <a href="https://jana1234567894.github.io/fruit_house/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
+                Explore Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* SECTION 4C — VKS DECORATION CASE STUDY */}
+      <section id="vks" className="w-full py-24 md:py-32 px-4 bg-secondary-bg border-y border-slate-100">
+        <div ref={vksRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <div className="space-y-2">
+              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Case Study</span>
+              <h2 className="text-4xl md:text-5xl font-bold italic text-slate-900">VKS Decoration</h2>
+            </div>
+
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
+                <div>
+                  <h4 className="font-semibold text-slate-900">Industry: Wedding & Floral Decor</h4>
+                  <p className="text-slate-600">VKS Flower Shop & Wedding Decor in Trichy specializes in traditional and contemporary wedding garlands, custom bouquets, and full event floral decoration services.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
+                <div>
+                  <h4 className="font-semibold text-slate-900">Solution</h4>
+                  <p className="text-slate-600">Custom website showcasing specialized garlands, weightless designs, engagement sets, and 24-hour delivery — enabling seamless digital ordering and brand discovery.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
+                <div>
+                  <h4 className="font-semibold text-slate-900">Result</h4>
+                  <p className="text-slate-600">Enhanced brand visibility across Trichy, streamlined customer ordering for weddings and events, and increased reach through their digital storefront.</p>
+                </div>
+              </div>
+            </div>
+            <div className="pt-4">
+              <a href="https://www.vksweddingevents.in/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
+                Explore Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+          </div>
+          {/* Mockup placeholder */}
+          <div className="hidden md:block" />
         </div>
       </section>
 

@@ -10,6 +10,9 @@ const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--f
 export const metadata: Metadata = {
   title: "JaVia — Enterprise Innovation",
   description: "Scalable digital products and enterprise-grade web platforms.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
