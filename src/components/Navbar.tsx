@@ -47,6 +47,14 @@ export function Navbar({ className }: { className?: string }) {
                         <HoveredLink href="#vks" isDark={isDark}>VKS Decoration</HoveredLink>
                     </div>
                 </MenuItem>
+                <MenuItem setActive={setActive} active={active} item="Services" href="#services" isDark={isDark} />
+                <MenuItem setActive={setActive} active={active} item="Insights" isDark={isDark}>
+                    <div className="flex flex-col space-y-4 text-sm">
+                        <HoveredLink href="#testimonials" isDark={isDark}>Testimonials</HoveredLink>
+                        <HoveredLink href="#blog" isDark={isDark}>Blog / Insights</HoveredLink>
+                        <HoveredLink href="#faqs" isDark={isDark}>FAQs</HoveredLink>
+                    </div>
+                </MenuItem>
                 <MenuItem setActive={setActive} active={active} item="About" href="#about" isDark={isDark} />
             </Menu>
         </div>

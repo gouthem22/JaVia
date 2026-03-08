@@ -13,12 +13,7 @@ export default function DeviceMockup() {
 
         const mm = gsap.matchMedia();
 
-        mm.add({
-            isDesktop: "(min-width: 768px)",
-            isMobile: "(max-width: 767px)"
-        }, (context) => {
-            const { isDesktop } = context.conditions as any;
-
+        mm.add("(min-width: 768px)", () => {
             // ── Screen activation helpers ──
             const phoneStates = {
                 products: ".phone-products-state",
@@ -59,24 +54,22 @@ export default function DeviceMockup() {
                 return tween;
             };
 
-            // ── Position values (Reduced weightage for better alignment) ──
-            const phoneRight = isDesktop ? 320 : 80;
-            const phoneLeft = isDesktop ? -320 : -80;
-            const laptopRight = isDesktop ? 350 : 100;
-            const laptopLeft = isDesktop ? -350 : -100;
-            const laptopScale = isDesktop ? 0.60 : 0.55;
+            // ── Position values ──
+            const phoneRight = 320;
+            const phoneLeft = -320;
+            const laptopRight = 350;
+            const laptopLeft = -350;
+            const laptopScale = 0.60;
 
             // ── Initial states ──
-            // Phone: hidden, positioned far off-screen RIGHT for slide-in entrance
             gsap.set(phoneRef.current, {
                 opacity: 0,
-                x: isDesktop ? 900 : 400,
+                x: 900,
                 y: 0,
                 scale: 0.85,
                 rotateY: -15
             });
 
-            // Laptop: hidden completely
             gsap.set(laptopRef.current, {
                 opacity: 0,
                 scale: 0.5,
@@ -84,20 +77,13 @@ export default function DeviceMockup() {
                 y: 0,
             });
 
-            // Set initial screen states
             activatePhoneScreen("products");
             activateLaptopScreen("jayplePortfolio");
 
-            // ═══════════════════════════════════════
             // PHONE SECTIONS
-            // ═══════════════════════════════════════
-
-            // JAYPLE — Phone slides in from off-screen RIGHT to the right column
-            // Triggered when Jayple description text is visible (not just heading)
             gsap.to(phoneRef.current, {
                 x: phoneRight,
-                y: 0,
-                rotateY: isDesktop ? -4 : -2,
+                rotateY: -4,
                 rotateX: 1,
                 scale: 0.9,
                 opacity: 1,
@@ -109,22 +95,18 @@ export default function DeviceMockup() {
                     end: "top 10%",
                     scrub: 1.0,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // GENFESS — Phone glides from right to LEFT column
-            // Triggered at the exact Genfess content block
             gsap.fromTo(phoneRef.current, {
                 x: phoneRight,
-                rotateY: isDesktop ? -4 : -2, // MATCH PREVIOUS END
+                rotateY: -4,
                 rotateX: 1,
                 scale: 0.9,
                 opacity: 1,
             }, {
                 x: phoneLeft,
-                y: 0,
-                rotateY: isDesktop ? 4 : 2,
+                rotateY: 4,
                 rotateX: 1,
                 scale: 0.9,
                 overwrite: "auto",
@@ -132,15 +114,13 @@ export default function DeviceMockup() {
                 ease: "power2.inOut",
                 scrollTrigger: {
                     trigger: "#genfess",
-                    start: "top 90%", // Starts sooner as the section enters the frame
+                    start: "top 90%",
                     end: "top 30%",
-                    scrub: 1.0,      // Matches Jayple entry speed
+                    scrub: 1.0,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // Screen state toggle for Genfess phone
             ScrollTrigger.create({
                 trigger: "#genfess",
                 start: "top 50%",
@@ -149,24 +129,16 @@ export default function DeviceMockup() {
                 invalidateOnRefresh: true,
             });
 
-            // ═══════════════════════════════════════
-            // PHONE EXIT — Fades at the END of Genfess block
-            // Uses fromTo for clean reverse on backtrack
-            // ═══════════════════════════════════════
-
-            // PHONE EXIT — Sharp fade and slide LEFT at the END of Genfess block
             gsap.fromTo(phoneRef.current, {
                 opacity: 1,
                 scale: 0.9,
                 x: phoneLeft,
-                y: 0,
-                rotateY: isDesktop ? 4 : 2,
+                rotateY: 4,
             }, {
                 opacity: 0,
                 scale: 0.6,
-                x: isDesktop ? -800 : -400, // Sharper exit further left
-                y: -10,
-                rotateY: isDesktop ? 8 : 4,
+                x: -800,
+                rotateY: 8,
                 overwrite: "auto",
                 immediateRender: false,
                 ease: "power2.in",
@@ -176,46 +148,36 @@ export default function DeviceMockup() {
                     end: "bottom 50%",
                     scrub: 0.4,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // Laptop fades in and positions to the RIGHT for Jayple Portfolio
-            // LAPTOP ENTRY — Quickly glides in from RIGHT for Jayple Portfolio
+            // LAPTOP SECTIONS
             gsap.to(laptopRef.current, {
                 opacity: 1,
                 scale: laptopScale,
                 x: laptopRight,
-                y: 0,
-                rotateY: isDesktop ? -4 : -2,
+                rotateY: -4,
                 rotateX: 1,
                 overwrite: "auto",
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: "#jayple-portfolio",
-                    start: "top 95%",
-                    end: "top 60%",
+                    start: "top 40%",
+                    end: "top 10%",
                     scrub: 0.4,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // ═══════════════════════════════════════
-            // LAPTOP SECTIONS
-            // ═══════════════════════════════════════
-
-            // GENFESS PORTFOLIO — Laptop glides from right to LEFT
             gsap.fromTo(laptopRef.current, {
                 x: laptopRight,
-                rotateY: isDesktop ? -4 : -2, // MATCH PREVIOUS END
+                rotateY: -4,
                 rotateX: 1,
                 scale: laptopScale,
                 opacity: 1,
             }, {
                 x: laptopLeft,
-                y: 0,
-                rotateY: isDesktop ? 4 : 2,
+                rotateY: 4,
                 rotateX: 1,
                 scale: laptopScale,
                 overwrite: "auto",
@@ -227,11 +189,9 @@ export default function DeviceMockup() {
                     end: "top 25%",
                     scrub: 1.5,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // Screen state toggle for Genfess Portfolio
             ScrollTrigger.create({
                 trigger: "#genfess-portfolio",
                 start: "top 40%",
@@ -240,17 +200,15 @@ export default function DeviceMockup() {
                 invalidateOnRefresh: true,
             });
 
-            // CASE STUDY — RACKSMADURAI — Laptop glides from left to RIGHT
             gsap.fromTo(laptopRef.current, {
                 x: laptopLeft,
-                rotateY: isDesktop ? 4 : 2, // MATCH PREVIOUS END
+                rotateY: 4,
                 rotateX: 1,
                 scale: laptopScale,
                 opacity: 1,
             }, {
                 x: laptopRight,
-                y: 0,
-                rotateY: isDesktop ? -4 : -2,
+                rotateY: -4,
                 rotateX: 1,
                 scale: laptopScale,
                 overwrite: "auto",
@@ -262,11 +220,9 @@ export default function DeviceMockup() {
                     end: "top 25%",
                     scrub: 1.5,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // Screen state toggle for Racksmadurai
             ScrollTrigger.create({
                 trigger: "#success",
                 start: "top 40%",
@@ -275,17 +231,15 @@ export default function DeviceMockup() {
                 invalidateOnRefresh: true,
             });
 
-            // CASE STUDY — FRUIT HOUSE — Laptop glides from right to LEFT
             gsap.fromTo(laptopRef.current, {
                 x: laptopRight,
-                rotateY: isDesktop ? -4 : -2, // MATCH PREVIOUS END
+                rotateY: -4,
                 rotateX: 1,
                 scale: laptopScale,
                 opacity: 1,
             }, {
                 x: laptopLeft,
-                y: 0,
-                rotateY: isDesktop ? 4 : 2,
+                rotateY: 4,
                 rotateX: 1,
                 scale: laptopScale,
                 overwrite: "auto",
@@ -297,11 +251,9 @@ export default function DeviceMockup() {
                     end: "top 25%",
                     scrub: 1.5,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // Screen state toggle for Fruit House
             ScrollTrigger.create({
                 trigger: "#fruithouse",
                 start: "top 40%",
@@ -310,17 +262,15 @@ export default function DeviceMockup() {
                 invalidateOnRefresh: true,
             });
 
-            // CASE STUDY — VKS DECORATION — Laptop glides from left to RIGHT
             gsap.fromTo(laptopRef.current, {
                 x: laptopLeft,
-                rotateY: isDesktop ? 4 : 2, // MATCH PREVIOUS END
+                rotateY: 4,
                 rotateX: 1,
                 scale: laptopScale,
                 opacity: 1,
             }, {
                 x: laptopRight,
-                y: 0,
-                rotateY: isDesktop ? -4 : -2,
+                rotateY: -4,
                 rotateX: 1,
                 scale: laptopScale,
                 opacity: 1,
@@ -332,11 +282,9 @@ export default function DeviceMockup() {
                     end: "top 25%",
                     scrub: 1.5,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
 
-            // Screen state toggle for VKS Decoration
             ScrollTrigger.create({
                 trigger: "#vks",
                 start: "top 40%",
@@ -345,16 +293,14 @@ export default function DeviceMockup() {
                 invalidateOnRefresh: true,
             });
 
-            // EXIT — Laptop glides away to the RIGHT after VKS content is finished
             gsap.fromTo(laptopRef.current, {
                 x: laptopRight,
                 opacity: 1,
-                rotateY: isDesktop ? -4 : -2,
+                rotateY: -4,
             }, {
                 opacity: 0,
                 scale: 0.55,
-                x: isDesktop ? 1000 : 600,
-                y: 10,
+                x: 1000,
                 rotateY: 0,
                 immediateRender: false,
                 ease: "power2.inOut",
@@ -364,7 +310,6 @@ export default function DeviceMockup() {
                     end: "bottom 10%",
                     scrub: 1.5,
                     invalidateOnRefresh: true,
-                    fastScrollEnd: true,
                 }
             });
         });
@@ -373,7 +318,7 @@ export default function DeviceMockup() {
     }, []);
 
     return (
-        <div className="device-wrapper fixed inset-y-0 left-0 right-0 flex items-center justify-center pointer-events-none z-[40] perspective-1200">
+        <div className="device-wrapper hidden md:flex fixed inset-y-0 left-0 right-0 items-center justify-center pointer-events-none z-[40] perspective-1200">
             {/* ═══ PHONE DEVICE ═══ */}
             <div
                 ref={phoneRef}

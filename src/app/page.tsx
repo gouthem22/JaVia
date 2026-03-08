@@ -4,6 +4,11 @@ import React, { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import DeviceMockup from "@/components/DeviceMockup";
+import Services from "@/components/Services";
+import Testimonials from "@/components/Testimonials";
+import Blog from "@/components/Blog";
+import FAQs from "@/components/FAQs";
+import Footer from "@/components/Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -15,6 +20,10 @@ export default function Home() {
   const successRef = useRef<HTMLDivElement>(null);
   const fruithouseRef = useRef<HTMLDivElement>(null);
   const vksRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
+  const blogRef = useRef<HTMLDivElement>(null);
+  const faqsRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   // Slow down the video for ambient cinematic feel
@@ -35,106 +44,58 @@ export default function Home() {
     gsap.registerPlugin(ScrollTrigger);
 
     // Initial hidden state
-    gsap.set([jaypleRef.current, genfessRef.current, jayplePortfolioRef.current, genfessPortfolioRef.current, successRef.current, fruithouseRef.current, vksRef.current], { opacity: 0, y: 40 });
+    const revealRefs = [
+      jaypleRef.current,
+      genfessRef.current,
+      jayplePortfolioRef.current,
+      genfessPortfolioRef.current,
+      successRef.current,
+      fruithouseRef.current,
+      vksRef.current,
+      servicesRef.current,
+      testimonialsRef.current,
+      blogRef.current,
+      faqsRef.current
+    ];
 
-    // Jayple Reveal
-    gsap.to(jaypleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: jaypleRef.current,
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    gsap.set(revealRefs, { opacity: 0, y: 40 });
 
-    // Genfess Reveal
-    gsap.to(genfessRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: genfessRef.current,
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    // Helper function for reveal animations
+    const createReveal = (ref: React.RefObject<HTMLDivElement | null>, triggerId?: string) => {
+      if (!ref.current) return;
+      gsap.to(ref.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: triggerId || ref.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    };
 
-    // Jayple Portfolio Reveal
-    gsap.to(jayplePortfolioRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: "#jayple-portfolio",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    createReveal(jaypleRef);
+    createReveal(genfessRef);
+    createReveal(jayplePortfolioRef, "#jayple-portfolio");
+    createReveal(genfessPortfolioRef, "#genfess-portfolio");
+    createReveal(successRef, "#success");
+    createReveal(fruithouseRef, "#fruithouse");
+    createReveal(vksRef, "#vks");
+    createReveal(servicesRef, "#services");
+    createReveal(testimonialsRef, "#testimonials");
+    createReveal(blogRef, "#blog");
+    createReveal(faqsRef, "#faqs");
 
-    // Genfess Portfolio Reveal
-    gsap.to(genfessPortfolioRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: "#genfess-portfolio",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    // Case Study Reveal
-    gsap.to(successRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: "#success",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    // Fruit House Reveal
-    gsap.to(fruithouseRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: "#fruithouse",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    // VKS Decoration Reveal
-    gsap.to(vksRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: "#vks",
-        start: "top 85%",
-        toggleActions: "play none none reverse"
-      }
-    });
   }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center">
       <DeviceMockup />
+
       {/* SECTION 1 — HERO */}
       <section id="home" className="relative w-full min-h-screen flex items-end px-6 md:px-12 pb-12 md:pb-16 overflow-hidden bg-black">
-        {/* Video Background — slowed, scaled and blurred for ambient cinematic feel */}
         <video
           ref={heroVideoRef}
           autoPlay
@@ -148,12 +109,9 @@ export default function Home() {
         >
           <source src="/bgvideo.mp4" type="video/mp4" />
         </video>
-        {/* Dark Gradient Overlay for smooth blending */}
         <div className="absolute inset-0" style={{ zIndex: 1, background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.5) 100%)" }} />
 
-        {/* Hero Content — Left Aligned */}
         <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8" style={{ zIndex: 2 }}>
-          {/* Left Text Block */}
           <div className="space-y-6 max-w-2xl">
             <h1
               className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-normal leading-[0.9] tracking-tight uppercase"
@@ -174,19 +132,16 @@ export default function Home() {
                 View Projects
               </Link>
               <Link
-                href="#about"
+                href="#services"
                 className="px-8 py-4 border border-white/30 text-white font-semibold tracking-widest uppercase text-sm rounded-full transition-all duration-300 hover:bg-white hover:text-black"
               >
-                Get in Touch
+                Our Services
               </Link>
             </div>
           </div>
 
-          {/* Right Info Block */}
           <div className="hidden md:flex flex-col items-end gap-4 text-right">
-            <span
-              className="text-white/50 text-xs tracking-[0.3em] uppercase"
-            >
+            <span className="text-white/50 text-xs tracking-[0.3em] uppercase">
               Scroll Down
             </span>
           </div>
@@ -199,6 +154,7 @@ export default function Home() {
           {/* Jayple */}
           <div id="jayple" ref={jaypleRef} className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
+              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Flagship Product</span>
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Jayple</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
                 A grooming appointment booking platform designed for salons, barbershops, and personal care professionals. Jayple helps grooming businesses manage appointments digitally, reduce walk-in confusion, and deliver a smooth booking experience.
@@ -219,15 +175,14 @@ export default function Home() {
                 <p className="text-xs text-slate-400 italic">An independent product owned and developed under JaVia Studio.</p>
               </div>
             </div>
-            {/* Removed placeholder card */}
             <div className="hidden md:block" />
           </div>
 
           {/* Genfess */}
           <div id="genfess" ref={genfessRef} className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 hidden md:block" />
-            {/* Removed placeholder card */}
             <div className="order-1 md:order-2 space-y-6">
+              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Incubated Product</span>
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Genfess</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
                 A private, anonymous campus interaction platform built for college communities. Genfess allows students to express thoughts, confessions, and opinions anonymously within a controlled college environment.
@@ -252,13 +207,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NEW SECTION — SERVICES */}
+      <div ref={servicesRef}>
+        <Services />
+      </div>
+
+      {/* NEW SECTION — TESTIMONIALS */}
+      <div ref={testimonialsRef}>
+        <Testimonials />
+      </div>
+
+      {/* NEW SECTION — BLOG */}
+      <div ref={blogRef}>
+        <Blog />
+      </div>
+
       {/* SECTION 3A — JAYPLE PORTFOLIO */}
       <section id="jayple-portfolio" className="w-full py-24 md:py-32 px-4 bg-white">
         <div ref={jayplePortfolioRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-2">
               <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Product Portfolio</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Jayple</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Jayple Launcher</h2>
             </div>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
               The Jayple launcher website serves as the digital storefront for the grooming appointment platform — showcasing features, service highlights, and providing a seamless entry point for salon businesses and customers.
@@ -277,7 +247,6 @@ export default function Home() {
                 <span className="text-slate-600 text-sm">Mobile-first responsive design for customer access</span>
               </div>
             </div>
-            <p className="text-xs text-slate-400 italic">Grooming appointment booking platform — Developed by JaVia Studio</p>
             <div className="pt-4">
               <a href="#" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
                 Explore Jayple Launcher <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -295,7 +264,7 @@ export default function Home() {
           <div className="space-y-8">
             <div className="space-y-2">
               <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Product Portfolio</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Genfess</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Genfess Platform</h2>
             </div>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
               The Genfess launcher website introduces the anonymous campus platform to college communities — highlighting privacy features, community moderation, and secure student access to drive campus adoption.
@@ -314,7 +283,6 @@ export default function Home() {
                 <span className="text-slate-600 text-sm">College onboarding flow & student verification</span>
               </div>
             </div>
-            <p className="text-xs text-slate-400 italic">Anonymous campus interaction platform — Incubated by JaVia Studio</p>
             <div className="pt-4">
               <a href="https://t-jayaprakash.github.io/LastBench/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
                 Discover Genfess Live <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -324,8 +292,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 4 — CLIENT SUCCESS STORY */}
-      <section id="success" className="w-full py-24 md:py-32 px-4 bg-secondary-bg border-y border-slate-100">
+      {/* SECTION 4 — CLIENT SUCCESS STORY (Racksmadurai) */}
+      <section id="success" className="w-full py-24 md:py-32 px-4 bg-white border-y border-slate-100">
         <div ref={successRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-2">
@@ -362,13 +330,12 @@ export default function Home() {
               </a>
             </div>
           </div>
-          {/* Removed Success Story placeholder */}
           <div className="hidden md:block" />
         </div>
       </section>
 
       {/* SECTION 4B — FRUIT HOUSE CASE STUDY */}
-      <section id="fruithouse" className="w-full py-24 md:py-32 px-4 bg-white border-y border-slate-100">
+      <section id="fruithouse" className="w-full py-24 md:py-32 px-4 bg-secondary-bg">
         <div ref={fruithouseRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
@@ -410,7 +377,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4C — VKS DECORATION CASE STUDY */}
-      <section id="vks" className="w-full py-24 md:py-32 px-4 bg-secondary-bg border-y border-slate-100">
+      <section id="vks" className="w-full py-24 md:py-32 px-4 bg-white border-y border-slate-100">
         <div ref={vksRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-2">
@@ -447,10 +414,14 @@ export default function Home() {
               </a>
             </div>
           </div>
-          {/* Mockup placeholder */}
           <div className="hidden md:block" />
         </div>
       </section>
+
+      {/* NEW SECTION — FAQs */}
+      <div ref={faqsRef}>
+        <FAQs />
+      </div>
 
       {/* SECTION 5 — ABOUT + FINAL CTA */}
       <section id="about" className="w-full py-32 px-4 text-center bg-white">
@@ -489,9 +460,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="w-full py-12 px-4 border-t border-slate-100 text-center bg-white">
-        <p className="text-slate-400 text-sm">© 2026 JaVia. All rights reserved. Enterprise-grade foundations.</p>
-      </footer>
+      <Footer />
     </main>
   );
 }
