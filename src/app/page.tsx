@@ -118,8 +118,9 @@ export default function Home() {
               style={{ 
                 fontFamily: "var(--font-bebas)", 
                 color: "#9ca3af",
-                fontSize: "clamp(3rem, 12vw, 10rem)",
-                lineHeight: "0.85"
+                fontSize: "clamp(2.5rem, calc(2rem + 8vw), 11rem)",
+                lineHeight: "0.85",
+                textWrap: "balance" as any
               }}
             >
               JaVia — Powering<br />
