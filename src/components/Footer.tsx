@@ -1,6 +1,7 @@
+"use client";
+
 import React from "react";
-import Link from "next/link";
-import { MessageCircle, Mail, Globe, ArrowRight } from "lucide-react";
+import { MessageCircle, Mail, Globe } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -17,7 +18,7 @@ export default function Footer() {
                             <a href="https://wa.me/919788995924" className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-all">
                                 <MessageCircle size={18} />
                             </a>
-                            <a href="mailto:info@javia.com" className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-all">
+                            <a href="mailto:jayaprakash.5388@gmail.com" className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-all">
                                 <Mail size={18} />
                             </a>
                             <a href="#" className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-900 hover:text-white transition-all">
@@ -30,10 +31,10 @@ export default function Footer() {
                     <div className="space-y-6">
                         <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest">Solutions</h4>
                         <ul className="space-y-4">
-                            <li><Link href="#products" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Flagship Products</Link></li>
-                            <li><Link href="#services" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Our Services</Link></li>
-                            <li><Link href="#success" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Case Studies</Link></li>
-                            <li><Link href="#blog" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Insights</Link></li>
+                            <li><a href="#products" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Flagship Products</a></li>
+                            <li><a href="#services" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Our Services</a></li>
+                            <li><a href="#success" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Case Studies</a></li>
+                            <li><a href="#blog" className="text-slate-500 hover:text-slate-900 transition-colors font-medium">Insights</a></li>
                         </ul>
                     </div>
 
@@ -46,7 +47,7 @@ export default function Footer() {
                                 India
                             </p>
                             <a href="tel:+919788995924" className="block text-slate-900 font-bold hover:underline">+91 97889 95924</a>
-                            <a href="mailto:contact@javia.io" className="block text-slate-500 font-medium hover:text-slate-900 transition-colors">contact@javia.io</a>
+                            <a href="mailto:jayaprakash.5388@gmail.com" className="block text-slate-500 font-medium hover:text-slate-900 transition-colors">jayaprakash.5388@gmail.com</a>
                         </div>
                     </div>
                 </div>
@@ -56,8 +57,8 @@ export default function Footer() {
                         © 2026 JaVia. All rights reserved.
                     </p>
                     <div className="flex gap-8">
-                        <Link href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Privacy Policy</Link>
-                        <Link href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Terms of Service</Link>
+                        <a href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Privacy Policy</a>
+                        <a href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Terms of Service</a>
                     </div>
                 </div>
             </div>

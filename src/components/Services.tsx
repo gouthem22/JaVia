@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
     Globe,
@@ -6,7 +8,7 @@ import {
     Palette,
     Compass,
     ChevronRight,
-    ArrowUpRight
+    MessageCircle
 } from "lucide-react";
 
 const services = [
@@ -48,7 +50,7 @@ export default function Services() {
             <div className="max-w-6xl mx-auto space-y-16">
                 <div className="space-y-4 max-w-3xl">
                     <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Services</span>
-                    <h2 className="text-4xl md:text-6xl font-bold text-slate-900 leading-tight">
+                    <h2 className="text-slate-900 leading-tight">
                         Specialized in <br />
                         <span className="italic">High-Performance</span> Solutions
                     </h2>
@@ -66,13 +68,13 @@ export default function Services() {
                             <div className="mb-6 p-4 bg-white rounded-2xl w-fit shadow-sm group-hover:shadow-md transition-shadow">
                                 {service.icon}
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-4">{service.title}</h3>
-                            <p className="text-slate-600 mb-8 leading-relaxed text-sm">
+                            <h3 className="font-bold text-slate-900 mb-4">{service.title}</h3>
+                            <p className="text-slate-600 mb-8 leading-relaxed">
                                 {service.description}
                             </p>
                             <ul className="space-y-3 mb-8 flex-grow">
                                 {service.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-center gap-2 text-xs text-slate-500 font-bold uppercase tracking-wider">
+                                    <li key={idx} className="flex items-center gap-2 text-slate-500 font-bold uppercase tracking-wider">
                                         <ChevronRight size={14} className="text-slate-300" />
                                         {feature}
                                     </li>
@@ -82,9 +84,10 @@ export default function Services() {
                                 href={`https://wa.me/919788995924?text=${encodeURIComponent(`Hi JaVia! I'm interested in an Enquiry for your ${service.title} services. Could you provide more details?`)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-slate-900 font-bold text-sm uppercase tracking-widest flex items-center gap-2 group/btn w-fit pt-6 border-t border-slate-100"
+                                className="text-slate-900 font-bold text-sm uppercase tracking-widest flex items-center gap-2 group/btn w-fit pt-6 border-t border-slate-100 group-hover:text-green-600 transition-colors"
                             >
-                                Enquiry <ArrowUpRight size={18} className="group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1 transition-transform" />
+                                <MessageCircle size={18} className="text-slate-400 group-hover/btn:text-green-500 transition-colors" />
+                                Enquiry
                             </a>
                         </div>
                     ))}

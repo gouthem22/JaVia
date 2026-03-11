@@ -29,96 +29,81 @@ export default function DeviceMockup() {
             };
 
             const activatePhoneScreen = (activeKey: keyof typeof phoneStates) => {
-                const tween = gsap.timeline();
                 Object.keys(phoneStates).forEach((key) => {
                     const k = key as keyof typeof phoneStates;
-                    if (k === activeKey) {
-                        tween.to(phoneStates[k], { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
-                    } else {
-                        tween.to(phoneStates[k], { opacity: 0, y: 20, duration: 0.3, ease: "power2.in" }, 0);
-                    }
+                    gsap.to(phoneStates[k], {
+                        opacity: k === activeKey ? 1 : 0,
+                        y: k === activeKey ? 0 : 20,
+                        duration: 0.3,
+                        overwrite: "auto",
+                        ease: k === activeKey ? "power2.out" : "power2.in"
+                    });
                 });
-                return tween;
             };
 
             const activateLaptopScreen = (activeKey: keyof typeof laptopStates) => {
-                const tween = gsap.timeline();
                 Object.keys(laptopStates).forEach((key) => {
                     const k = key as keyof typeof laptopStates;
-                    if (k === activeKey) {
-                        tween.to(laptopStates[k], { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 0);
-                    } else {
-                        tween.to(laptopStates[k], { opacity: 0, y: 20, duration: 0.3, ease: "power2.in" }, 0);
-                    }
+                    gsap.to(laptopStates[k], {
+                        opacity: k === activeKey ? 1 : 0,
+                        y: k === activeKey ? 0 : 20,
+                        duration: 0.3,
+                        overwrite: "auto",
+                        ease: k === activeKey ? "power2.out" : "power2.in"
+                    });
                 });
-                return tween;
             };
 
-            // ── Position values ──
-            const phoneRight = 320;
-            const phoneLeft = -320;
-            const laptopRight = 350;
-            const laptopLeft = -350;
-            const laptopScale = 0.60;
+            // ── Position values (Responsive) ──
+            const getPhoneOffset = () => Math.min(window.innerWidth * 0.28, 450);
+            const getLaptopOffset = () => Math.min(window.innerWidth * 0.3, 500);
+            const laptopScale = 0.65;
 
-            // ── Initial states ──
-            gsap.set(phoneRef.current, {
-                opacity: 0,
-                x: 900,
-                y: 0,
-                scale: 0.85,
-                rotateY: -15
-            });
-
-            gsap.set(laptopRef.current, {
-                opacity: 0,
-                scale: 0.5,
-                x: 0,
-                y: 0,
-            });
-
-            activatePhoneScreen("products");
-            activateLaptopScreen("jayplePortfolio");
-
-            // PHONE SECTIONS
-            gsap.to(phoneRef.current, {
-                x: phoneRight,
-                rotateY: -4,
-                rotateX: 1,
-                scale: 0.9,
-                opacity: 1,
-                overwrite: "auto",
-                ease: "power2.out",
+            // ── Master Phone Timeline ──
+            const phoneTL = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#jayple",
-                    start: "top 40%",
-                    end: "top 10%",
-                    scrub: 1.0,
-                    invalidateOnRefresh: true,
+                    start: "top bottom", 
+                    endTrigger: "#genfess",
+                    end: "bottom 50%",
+                    scrub: 0.5,
+                    toggleActions: "play none none reverse",
                 }
             });
 
-            gsap.fromTo(phoneRef.current, {
-                x: phoneRight,
-                rotateY: -4,
-                rotateX: 1,
-                scale: 0.9,
-                opacity: 1,
-            }, {
-                x: phoneLeft,
-                rotateY: 4,
-                rotateX: 1,
-                scale: 0.9,
-                overwrite: "auto",
-                immediateRender: false,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: "#genfess",
-                    start: "top 90%",
-                    end: "top 30%",
-                    scrub: 1.0,
-                    invalidateOnRefresh: true,
-                }
+            phoneTL
+                // Entry from Home/Hero
+                .set(phoneRef.current, { opacity: 0, x: "80vw", scale: 0.8, rotateY: -15 })
+                .to(phoneRef.current, {
+                    opacity: 1, 
+                    x: () => getPhoneOffset(), 
+                    scale: 0.9, 
+                    rotateY: -4, 
+                    rotateX: 1,
+                    ease: "power2.out",
+                    duration: 1
+                })
+                // Switch to Genfess
+                .to(phoneRef.current, {
+                    x: () => -getPhoneOffset(), 
+                    rotateY: 4, 
+                    scale: 0.9,
+                    ease: "power2.inOut",
+                    duration: 2 
+                }, "+=1")
+                // Exit
+                .to(phoneRef.current, {
+                    opacity: 0, scale: 0.6, x: "-80vw", rotateY: 8,
+                    ease: "power2.in",
+                    duration: 1
+                }, "+=1");
+
+            // Individual Triggers for Screen Swapping
+            ScrollTrigger.create({
+                trigger: "#jayple",
+                start: "top 50%",
+                onEnter: () => activatePhoneScreen("products"),
+                onLeaveBack: () => activatePhoneScreen("products"),
             });
 
             ScrollTrigger.create({
@@ -126,191 +111,97 @@ export default function DeviceMockup() {
                 start: "top 50%",
                 onEnter: () => activatePhoneScreen("genfess"),
                 onLeaveBack: () => activatePhoneScreen("products"),
-                invalidateOnRefresh: true,
             });
 
-            gsap.fromTo(phoneRef.current, {
-                opacity: 1,
-                scale: 0.9,
-                x: phoneLeft,
-                rotateY: 4,
-            }, {
-                opacity: 0,
-                scale: 0.6,
-                x: -800,
-                rotateY: 8,
-                overwrite: "auto",
-                immediateRender: false,
-                ease: "power2.in",
-                scrollTrigger: {
-                    trigger: "#genfess",
-                    start: "bottom 90%",
-                    end: "bottom 50%",
-                    scrub: 0.4,
-                    invalidateOnRefresh: true,
-                }
-            });
-
-            // LAPTOP SECTIONS
-            gsap.to(laptopRef.current, {
-                opacity: 1,
-                scale: laptopScale,
-                x: laptopRight,
-                rotateY: -4,
-                rotateX: 1,
-                overwrite: "auto",
-                ease: "power2.out",
+            // ── Master Laptop Timeline ──
+            const laptopTL = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#jayple-portfolio",
-                    start: "top 40%",
-                    end: "top 10%",
-                    scrub: 0.4,
-                    invalidateOnRefresh: true,
+                    start: "top 50%",
+                    endTrigger: "#vks",
+                    end: "bottom 20%",
+                    scrub: 0.5,
+                    toggleActions: "play none none reverse",
                 }
             });
 
-            gsap.fromTo(laptopRef.current, {
-                x: laptopRight,
-                rotateY: -4,
-                rotateX: 1,
-                scale: laptopScale,
-                opacity: 1,
-            }, {
-                x: laptopLeft,
-                rotateY: 4,
-                rotateX: 1,
-                scale: laptopScale,
-                overwrite: "auto",
-                immediateRender: false,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: "#genfess-portfolio",
-                    start: "top 80%",
-                    end: "top 25%",
-                    scrub: 1.5,
-                    invalidateOnRefresh: true,
-                }
-            });
+            laptopTL
+                // Entry
+                .set(laptopRef.current, { opacity: 0, scale: 0.5, x: "50vw" })
+                .to(laptopRef.current, {
+                    opacity: 1, 
+                    scale: laptopScale, 
+                    x: () => getLaptopOffset(), 
+                    rotateY: -4, 
+                    rotateX: 1,
+                    ease: "power2.out",
+                    duration: 1
+                })
+                // Move to Genfess Portfolio
+                .to(laptopRef.current, {
+                    x: () => -getLaptopOffset(), 
+                    rotateY: 4,
+                    ease: "power2.inOut",
+                    duration: 1.5
+                }, "+=1")
+                // Move back to Right for Success
+                .to(laptopRef.current, {
+                    x: () => getLaptopOffset(), 
+                    rotateY: -4,
+                    ease: "power2.inOut",
+                    duration: 1.5
+                }, "+=1")
+                // Move back to Left for Fruithouse
+                .to(laptopRef.current, {
+                    x: () => -getLaptopOffset(), 
+                    rotateY: 4,
+                    ease: "power2.inOut",
+                    duration: 1.5
+                }, "+=1")
+                // Move back to Right for VKS
+                .to(laptopRef.current, {
+                    x: () => getLaptopOffset(), 
+                    rotateY: -4,
+                    ease: "power2.inOut",
+                    duration: 1.5
+                }, "+=1")
+                // Exit
+                .to(laptopRef.current, {
+                    opacity: 0, scale: 0.55, x: "80vw", rotateY: 0,
+                    ease: "power2.inOut",
+                    duration: 1
+                }, "+=1");
 
+            // Screen Activation Triggers (Lap)
+            ScrollTrigger.create({
+                trigger: "#jayple-portfolio",
+                start: "top 50%",
+                onEnter: () => activateLaptopScreen("jayplePortfolio"),
+                onLeaveBack: () => activateLaptopScreen("jayplePortfolio"),
+            });
             ScrollTrigger.create({
                 trigger: "#genfess-portfolio",
-                start: "top 40%",
+                start: "top 50%",
                 onEnter: () => activateLaptopScreen("genfessPortfolio"),
                 onLeaveBack: () => activateLaptopScreen("jayplePortfolio"),
-                invalidateOnRefresh: true,
             });
-
-            gsap.fromTo(laptopRef.current, {
-                x: laptopLeft,
-                rotateY: 4,
-                rotateX: 1,
-                scale: laptopScale,
-                opacity: 1,
-            }, {
-                x: laptopRight,
-                rotateY: -4,
-                rotateX: 1,
-                scale: laptopScale,
-                overwrite: "auto",
-                immediateRender: false,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: "#success",
-                    start: "top 80%",
-                    end: "top 25%",
-                    scrub: 1.5,
-                    invalidateOnRefresh: true,
-                }
-            });
-
             ScrollTrigger.create({
                 trigger: "#success",
-                start: "top 40%",
+                start: "top 50%",
                 onEnter: () => activateLaptopScreen("case"),
                 onLeaveBack: () => activateLaptopScreen("genfessPortfolio"),
-                invalidateOnRefresh: true,
             });
-
-            gsap.fromTo(laptopRef.current, {
-                x: laptopRight,
-                rotateY: -4,
-                rotateX: 1,
-                scale: laptopScale,
-                opacity: 1,
-            }, {
-                x: laptopLeft,
-                rotateY: 4,
-                rotateX: 1,
-                scale: laptopScale,
-                overwrite: "auto",
-                immediateRender: false,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: "#fruithouse",
-                    start: "top 80%",
-                    end: "top 25%",
-                    scrub: 1.5,
-                    invalidateOnRefresh: true,
-                }
-            });
-
             ScrollTrigger.create({
                 trigger: "#fruithouse",
-                start: "top 40%",
+                start: "top 50%",
                 onEnter: () => activateLaptopScreen("fruithouse"),
                 onLeaveBack: () => activateLaptopScreen("case"),
-                invalidateOnRefresh: true,
             });
-
-            gsap.fromTo(laptopRef.current, {
-                x: laptopLeft,
-                rotateY: 4,
-                rotateX: 1,
-                scale: laptopScale,
-                opacity: 1,
-            }, {
-                x: laptopRight,
-                rotateY: -4,
-                rotateX: 1,
-                scale: laptopScale,
-                opacity: 1,
-                immediateRender: false,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: "#vks",
-                    start: "top 80%",
-                    end: "top 25%",
-                    scrub: 1.5,
-                    invalidateOnRefresh: true,
-                }
-            });
-
             ScrollTrigger.create({
                 trigger: "#vks",
-                start: "top 40%",
+                start: "top 50%",
                 onEnter: () => activateLaptopScreen("vks"),
                 onLeaveBack: () => activateLaptopScreen("fruithouse"),
-                invalidateOnRefresh: true,
-            });
-
-            gsap.fromTo(laptopRef.current, {
-                x: laptopRight,
-                opacity: 1,
-                rotateY: -4,
-            }, {
-                opacity: 0,
-                scale: 0.55,
-                x: 1000,
-                rotateY: 0,
-                immediateRender: false,
-                ease: "power2.inOut",
-                scrollTrigger: {
-                    trigger: "#vks",
-                    start: "bottom 85%",
-                    end: "bottom 10%",
-                    scrub: 1.5,
-                    invalidateOnRefresh: true,
-                }
             });
         });
 
@@ -318,7 +209,8 @@ export default function DeviceMockup() {
     }, []);
 
     return (
-        <div className="device-wrapper hidden md:flex fixed inset-y-0 left-0 right-0 items-center justify-center pointer-events-none z-[40] perspective-1200">
+        <div className="device-wrapper hidden md:flex fixed inset-0 items-center justify-center pointer-events-none z-[40] perspective-2000 transition-transform duration-700"
+             style={{ scale: "clamp(0.4, 65vw / 1200, 1)" }}>
             {/* ═══ PHONE DEVICE ═══ */}
             <div
                 ref={phoneRef}

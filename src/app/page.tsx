@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, MessageCircle } from "lucide-react";
 import DeviceMockup from "@/components/DeviceMockup";
 import Services from "@/components/Services";
 import Testimonials from "@/components/Testimonials";
@@ -95,7 +95,7 @@ export default function Home() {
       <DeviceMockup />
 
       {/* SECTION 1 — HERO */}
-      <section id="home" className="relative w-full min-h-screen flex items-end px-6 md:px-12 pb-12 md:pb-16 overflow-hidden bg-black">
+      <section id="home" className="relative w-full min-h-screen flex items-center md:items-end px-6 md:px-12 pt-[var(--navbar-height)] pb-12 md:pb-24 overflow-hidden bg-black">
         <video
           ref={heroVideoRef}
           autoPlay
@@ -105,35 +105,40 @@ export default function Home() {
           onCanPlay={handleVideoReady}
           onPlay={handleVideoReady}
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: 0, transform: "scale(1.15)", filter: "blur(1px) brightness(0.5) saturate(0.7)" }}
+          style={{ zIndex: 0, transform: "scale(1.1)", filter: "blur(1px) brightness(0.4) saturate(0.8)" }}
         >
           <source src="/bgvideo.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0" style={{ zIndex: 1, background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.5) 100%)" }} />
+        <div className="absolute inset-0" style={{ zIndex: 1, background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%)" }} />
 
-        <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-end justify-between gap-8" style={{ zIndex: 2 }}>
-          <div className="space-y-6 max-w-2xl">
+        <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end justify-between gap-12" style={{ zIndex: 2 }}>
+          <div className="space-y-8 max-w-4xl text-center md:text-left">
             <h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-normal leading-[0.9] tracking-tight uppercase"
-              style={{ fontFamily: "var(--font-bebas)", color: "#9ca3af" }}
+              className="font-normal uppercase tracking-tighter"
+              style={{ 
+                fontFamily: "var(--font-bebas)", 
+                color: "#9ca3af",
+                fontSize: "clamp(3rem, 12vw, 10rem)",
+                lineHeight: "0.85"
+              }}
             >
               JaVia — Powering<br />
               <span style={{ color: "#ffffff" }}>Enterprise</span><br />
               Innovation
             </h1>
-            <p className="text-base md:text-lg text-white/70 max-w-lg leading-relaxed">
+            <p className="text-base md:text-xl text-white/70 max-w-xl mx-auto md:mx-0 leading-relaxed font-medium">
               We build scalable digital products and enterprise-grade web platforms that drive measurable growth.
             </p>
-            <div className="flex flex-col sm:flex-row items-start gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-center md:items-start gap-5 pt-4">
               <Link
                 href="#products"
-                className="px-8 py-4 border border-white/30 text-white font-semibold tracking-widest uppercase text-sm rounded-full transition-all duration-300 hover:bg-white hover:text-black"
+                className="btn-premium border border-white/30 text-white font-bold tracking-widest uppercase hover:bg-white hover:text-black w-full sm:w-auto"
               >
                 View Projects
               </Link>
               <Link
                 href="#services"
-                className="px-8 py-4 border border-white/30 text-white font-semibold tracking-widest uppercase text-sm rounded-full transition-all duration-300 hover:bg-white hover:text-black"
+                className="btn-premium border border-white/30 text-white font-bold tracking-widest uppercase hover:bg-white hover:text-black w-full sm:w-auto"
               >
                 Our Services
               </Link>
@@ -149,58 +154,58 @@ export default function Home() {
       </section>
 
       {/* SECTION 2 — FLAGSHIP PRODUCTS */}
-      <section id="products" className="w-full py-24 md:py-32 px-4 bg-secondary-bg">
-        <div className="max-w-6xl mx-auto space-y-[40vh]">
+      <section id="products" className="w-full py-32 md:py-48 px-4 bg-secondary-bg">
+        <div className="max-w-7xl mx-auto space-y-[45vh]">
           {/* Jayple */}
-          <div id="jayple" ref={jaypleRef} className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Flagship Product</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Jayple</h2>
+          <div id="jayple" ref={jaypleRef} className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+            <div className="space-y-8">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Flagship Product</span>
+              <h2 className="text-slate-900 leading-tight">Jayple</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
                 A grooming appointment booking platform designed for salons, barbershops, and personal care professionals. Jayple helps grooming businesses manage appointments digitally, reduce walk-in confusion, and deliver a smooth booking experience.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-2">Core Features</h4>
+                  <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-3">Core Features</h4>
                   <div className="flex flex-wrap gap-2">
                     {["Appointment Booking", "Time-Slot Management", "Business Profiles", "Scheduling Workflow"].map((f) => (
-                      <span key={f} className="px-3 py-1.5 bg-slate-100 border border-slate-200 text-slate-700 text-sm font-medium rounded-full">{f}</span>
+                      <span key={f} className="px-4 py-2 bg-white border border-slate-100 text-slate-700 text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">{f}</span>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-2">Built For</h4>
-                  <p className="text-slate-600 text-sm leading-relaxed">Hair salons · Barbershops · Grooming service providers</p>
+                  <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-3">Built For</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed font-semibold">Hair salons · Barbershops · Grooming service providers</p>
                 </div>
-                <p className="text-xs text-slate-400 italic">An independent product owned and developed under JaVia Studio.</p>
+                <p className="text-[10px] text-slate-400 italic">An independent product owned and developed under JaVia Studio.</p>
               </div>
             </div>
             <div className="hidden md:block" />
           </div>
 
           {/* Genfess */}
-          <div id="genfess" ref={genfessRef} className="grid md:grid-cols-2 gap-12 items-center">
+          <div id="genfess" ref={genfessRef} className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="order-2 md:order-1 hidden md:block" />
-            <div className="order-1 md:order-2 space-y-6">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Incubated Product</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Genfess</h2>
+            <div className="order-1 md:order-2 space-y-8">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Incubated Product</span>
+              <h2 className="text-slate-900 leading-tight">Genfess</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
                 A private, anonymous campus interaction platform built for college communities. Genfess allows students to express thoughts, confessions, and opinions anonymously within a controlled college environment.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-2">Core Features</h4>
+                  <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-3">Core Features</h4>
                   <div className="flex flex-wrap gap-2">
                     {["Anonymous Posting", "Campus-Based Grouping", "Moderation System", "Secure Student Access"].map((f) => (
-                      <span key={f} className="px-3 py-1.5 bg-slate-100 border border-slate-200 text-slate-700 text-sm font-medium rounded-full">{f}</span>
+                      <span key={f} className="px-4 py-2 bg-white border border-slate-100 text-slate-700 text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">{f}</span>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-2">Built For</h4>
-                  <p className="text-slate-600 text-sm leading-relaxed">College students · Campus communities · Student engagement initiatives</p>
+                  <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-3">Built For</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed font-semibold">College students · Campus communities · Student engagement initiatives</p>
                 </div>
-                <p className="text-xs text-slate-400 italic">An independent product incubated and managed by JaVia Studio.</p>
+                <p className="text-[10px] text-slate-400 italic">An independent product incubated and managed by JaVia Studio.</p>
               </div>
             </div>
           </div>
@@ -223,33 +228,33 @@ export default function Home() {
       </div>
 
       {/* SECTION 3A — JAYPLE PORTFOLIO */}
-      <section id="jayple-portfolio" className="w-full py-24 md:py-32 px-4 bg-white">
-        <div ref={jayplePortfolioRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <section id="jayple-portfolio" className="w-full py-32 md:py-48 px-4 bg-white">
+        <div ref={jayplePortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="space-y-8">
-            <div className="space-y-2">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Product Portfolio</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Jayple Launcher</h2>
+            <div className="space-y-3">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Product Portfolio</span>
+              <h2 className="text-slate-900 leading-tight">Jayple Launcher</h2>
             </div>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
               The Jayple launcher website serves as the digital storefront for the grooming appointment platform — showcasing features, service highlights, and providing a seamless entry point for salon businesses and customers.
             </p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-slate-900 flex-shrink-0" size={18} />
-                <span className="text-slate-600 text-sm">Appointment booking showcase & feature overview</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-slate-900 flex-shrink-0" size={18} />
-                <span className="text-slate-600 text-sm">Salon business onboarding & profile creation flow</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-slate-900 flex-shrink-0" size={18} />
-                <span className="text-slate-600 text-sm">Mobile-first responsive design for customer access</span>
-              </div>
+            <div className="space-y-4">
+              {[
+                "Appointment booking showcase & feature overview",
+                "Salon business onboarding & profile creation flow",
+                "Mobile-first responsive design for customer access"
+              ].map((item, id) => (
+                <div key={id} className="flex items-center gap-4">
+                  <div className="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="text-white" size={14} />
+                  </div>
+                  <span className="text-slate-600 text-sm font-semibold">{item}</span>
+                </div>
+              ))}
             </div>
-            <div className="pt-4">
-              <a href="#" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
-                Explore Jayple Launcher <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <div className="pt-6">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="btn-premium bg-slate-900 text-white hover:bg-black group shadow-2xl shadow-slate-900/20">
+                Explore Jayple Launcher <ArrowRight size={18} className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -258,34 +263,34 @@ export default function Home() {
       </section>
 
       {/* SECTION 3B — GENFESS PORTFOLIO */}
-      <section id="genfess-portfolio" className="w-full py-24 md:py-32 px-4 bg-secondary-bg">
-        <div ref={genfessPortfolioRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <section id="genfess-portfolio" className="w-full py-32 md:py-48 px-4 bg-secondary-bg">
+        <div ref={genfessPortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
-            <div className="space-y-2">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Product Portfolio</span>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900">Genfess Platform</h2>
+            <div className="space-y-3">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Product Portfolio</span>
+              <h2 className="text-slate-900 leading-tight">Genfess Platform</h2>
             </div>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
               The Genfess launcher website introduces the anonymous campus platform to college communities — highlighting privacy features, community moderation, and secure student access to drive campus adoption.
             </p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-slate-900 flex-shrink-0" size={18} />
-                <span className="text-slate-600 text-sm">Anonymous expression & campus community showcase</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-slate-900 flex-shrink-0" size={18} />
-                <span className="text-slate-600 text-sm">Privacy-first architecture & moderation overview</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="text-slate-900 flex-shrink-0" size={18} />
-                <span className="text-slate-600 text-sm">College onboarding flow & student verification</span>
-              </div>
+            <div className="space-y-4">
+              {[
+                "Anonymous expression & campus community showcase",
+                "Privacy-first architecture & moderation overview",
+                "College onboarding flow & student verification"
+              ].map((item, id) => (
+                <div key={id} className="flex items-center gap-4">
+                  <div className="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="text-white" size={14} />
+                  </div>
+                  <span className="text-slate-600 text-sm font-semibold">{item}</span>
+                </div>
+              ))}
             </div>
-            <div className="pt-4">
-              <a href="https://t-jayaprakash.github.io/LastBench/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
-                Discover Genfess Live <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <div className="pt-6">
+              <a href="https://t-jayaprakash.github.io/LastBench/" target="_blank" rel="noopener noreferrer" className="btn-premium bg-slate-900 text-white hover:bg-black group shadow-2xl shadow-slate-900/20">
+                Discover Genfess Live <ArrowRight size={18} className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -293,40 +298,34 @@ export default function Home() {
       </section>
 
       {/* SECTION 4 — CLIENT SUCCESS STORY (Racksmadurai) */}
-      <section id="success" className="w-full py-24 md:py-32 px-4 bg-white border-y border-slate-100">
-        <div ref={successRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <section id="success" className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100">
+        <div ref={successRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="space-y-8">
-            <div className="space-y-2">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Case Study</span>
-              <h2 className="text-4xl md:text-5xl font-bold italic text-slate-900">Racksmadurai</h2>
+            <div className="space-y-3">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Case Study</span>
+              <h2 className="italic text-slate-900 leading-tight">Racksmadurai</h2>
             </div>
 
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Industry: Retail Infrastructure</h4>
-                  <p className="text-slate-600">Need for structured digital presence and product showcase to manage complex catalogs.</p>
+            <div className="space-y-8">
+              {[
+                { label: "Industry: Retail Infrastructure", desc: "Need for structured digital presence and product showcase to manage complex catalogs." },
+                { label: "Solution", desc: "Custom website design and engineering to build their official digital presence." },
+                { label: "Result", desc: "Improved brand visibility and structured online catalog for Racksmadurai." }
+              ].map((item, id) => (
+                <div key={id} className="flex gap-5">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
+                    <CheckCircle2 className="text-slate-900" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">{item.label}</h4>
+                    <p className="text-slate-500 text-sm font-medium">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Solution</h4>
-                  <p className="text-slate-600">Custom website design and engineering to build their official digital presence.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Result</h4>
-                  <p className="text-slate-600">Improved brand visibility and structured online catalog for Racksmadurai.</p>
-                </div>
-              </div>
+              ))}
             </div>
-            <div className="pt-4">
-              <a href="https://www.racksmadurai.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
-                Explore Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <div className="pt-6">
+              <a href="https://www.racksmadurai.com/" target="_blank" rel="noopener noreferrer" className="btn-premium bg-slate-900 text-white hover:bg-black group shadow-2xl shadow-slate-900/20">
+                Explore Now <ArrowRight size={18} className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -335,41 +334,35 @@ export default function Home() {
       </section>
 
       {/* SECTION 4B — FRUIT HOUSE CASE STUDY */}
-      <section id="fruithouse" className="w-full py-24 md:py-32 px-4 bg-secondary-bg">
-        <div ref={fruithouseRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <section id="fruithouse" className="w-full py-32 md:py-48 px-4 bg-secondary-bg">
+        <div ref={fruithouseRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
-            <div className="space-y-2">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Case Study</span>
-              <h2 className="text-4xl md:text-5xl font-bold italic text-slate-900">Fruit House</h2>
+            <div className="space-y-3">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Case Study</span>
+              <h2 className="italic text-slate-900 leading-tight">Fruit House</h2>
             </div>
 
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Industry: Food & Beverage</h4>
-                  <p className="text-slate-600">A popular, trendy spot specializing in fresh, healthy, and nutrient-rich food including fruit bowls, salads, and cold-pressed juices.</p>
+            <div className="space-y-8">
+              {[
+                { label: "Industry: Food & Beverage", desc: "A popular, trendy spot specializing in fresh, healthy, and nutrient-rich food including fruit bowls, salads, and cold-pressed juices." },
+                { label: "Solution", desc: "Custom mobile-first website with online menu showcase, order integration, and brand presence to drive foot traffic and online orders." },
+                { label: "Result", desc: "Enhanced brand visibility, seamless menu browsing experience, and increased customer engagement through WhatsApp ordering integration." }
+              ].map((item, id) => (
+                <div key={id} className="flex gap-5">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
+                    <CheckCircle2 className="text-slate-900" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">{item.label}</h4>
+                    <p className="text-slate-500 text-sm font-medium">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Solution</h4>
-                  <p className="text-slate-600">Custom mobile-first website with online menu showcase, order integration, and brand presence to drive foot traffic and online orders.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Result</h4>
-                  <p className="text-slate-600">Enhanced brand visibility, seamless menu browsing experience, and increased customer engagement through WhatsApp ordering integration.</p>
-                </div>
-              </div>
+              ))}
             </div>
-            <div className="pt-4">
-              <a href="https://jana1234567894.github.io/fruit_house/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
-                Explore Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <div className="pt-6">
+              <a href="https://jana1234567894.github.io/fruit_house/" target="_blank" rel="noopener noreferrer" className="btn-premium bg-slate-900 text-white hover:bg-black group shadow-2xl shadow-slate-900/20">
+                Explore Now <ArrowRight size={18} className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -377,40 +370,34 @@ export default function Home() {
       </section>
 
       {/* SECTION 4C — VKS DECORATION CASE STUDY */}
-      <section id="vks" className="w-full py-24 md:py-32 px-4 bg-white border-y border-slate-100">
-        <div ref={vksRef} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <section id="vks" className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100">
+        <div ref={vksRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="space-y-8">
-            <div className="space-y-2">
-              <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">Case Study</span>
-              <h2 className="text-4xl md:text-5xl font-bold italic text-slate-900">VKS Decoration</h2>
+            <div className="space-y-3">
+              <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Case Study</span>
+              <h2 className="italic text-slate-900 leading-tight">VKS Decoration</h2>
             </div>
 
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Industry: Wedding & Floral Decor</h4>
-                  <p className="text-slate-600">VKS Flower Shop & Wedding Decor in Trichy specializes in traditional and contemporary wedding garlands, custom bouquets, and full event floral decoration services.</p>
+            <div className="space-y-8">
+              {[
+                { label: "Industry: Wedding & Floral Decor", desc: "VKS Flower Shop & Wedding Decor in Trichy specializes in traditional and contemporary wedding garlands, custom bouquets, and full event floral decoration services." },
+                { label: "Solution", desc: "Custom website showcasing specialized garlands, weightless designs, engagement sets, and 24-hour delivery — enabling seamless digital ordering and brand discovery." },
+                { label: "Result", desc: "Enhanced brand visibility across Trichy, streamlined customer ordering for weddings and events, and increased reach through their digital storefront." }
+              ].map((item, id) => (
+                <div key={id} className="flex gap-5">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
+                    <CheckCircle2 className="text-slate-900" size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 mb-1">{item.label}</h4>
+                    <p className="text-slate-500 text-sm font-medium">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Solution</h4>
-                  <p className="text-slate-600">Custom website showcasing specialized garlands, weightless designs, engagement sets, and 24-hour delivery — enabling seamless digital ordering and brand discovery.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="flex-shrink-0 mt-1"><CheckCircle2 className="text-slate-900" size={20} /></div>
-                <div>
-                  <h4 className="font-semibold text-slate-900">Result</h4>
-                  <p className="text-slate-600">Enhanced brand visibility across Trichy, streamlined customer ordering for weddings and events, and increased reach through their digital storefront.</p>
-                </div>
-              </div>
+              ))}
             </div>
-            <div className="pt-4">
-              <a href="https://www.vksweddingevents.in/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-7 py-3.5 bg-slate-900 text-white font-semibold rounded-full hover:bg-slate-800 transition-all hover:-translate-y-1 active:scale-95 shadow-xl shadow-slate-900/20 group">
-                Explore Now <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <div className="pt-6">
+              <a href="https://www.vksweddingevents.in/" target="_blank" rel="noopener noreferrer" className="btn-premium bg-slate-900 text-white hover:bg-black group shadow-2xl shadow-slate-900/20">
+                Explore Now <ArrowRight size={18} className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -452,8 +439,9 @@ export default function Home() {
               href="https://wa.me/919788995924?text=Hi%20JaVia!%20%F0%9F%9A%80%20I'm%20looking%20to%20build%20a%20high-performance%20digital%20product%20and%20would%20love%20to%20discuss%20how%20your%20engineering%20team%20can%20bring%20my%20vision%20to%20life.%20Let's%20connect!"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-12 py-5 bg-slate-900 text-white font-bold rounded-full text-lg hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-[0_15px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
+              className="inline-flex items-center gap-3 px-12 py-5 bg-slate-900 text-white font-bold rounded-full text-lg hover:bg-black transition-all hover:scale-105 active:scale-95 shadow-[0_15px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] group"
             >
+              <MessageCircle className="text-green-400 group-hover:scale-110 transition-transform" size={24} />
               Schedule a Consultation
             </a>
           </div>

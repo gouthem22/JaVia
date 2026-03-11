@@ -31,8 +31,19 @@ export const MenuItem = ({
 }) => {
     const handleClick = () => {
         if (href) {
-            const el = document.querySelector(href);
-            if (el) el.scrollIntoView({ behavior: "smooth" });
+            if (href.startsWith("/")) {
+                // Full path like /blog — navigate directly
+                window.location.href = href;
+            } else if (href.startsWith("#")) {
+                // Hash link — check if we're on the homepage
+                const el = document.querySelector(href);
+                if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    // Not on homepage, navigate to homepage + hash
+                    window.location.href = "/" + href;
+                }
+            }
         }
     };
     return (
@@ -41,7 +52,7 @@ export const MenuItem = ({
                 onClick={handleClick}
                 transition={{ duration: 0.3 }}
                 className={cn(
-                    "cursor-pointer transition-colors duration-500 font-medium",
+                    "cursor-pointer transition-colors duration-500 font-medium text-[9px] sm:text-xs md:text-sm lg:text-base whitespace-nowrap",
                     isDark
                         ? (active === item ? "text-white font-bold" : "text-white/70 hover:text-white")
                         : (active === item ? "text-slate-900 font-bold" : "text-slate-500 hover:text-slate-900")
@@ -95,7 +106,7 @@ export const Menu = ({
         <nav
             onMouseLeave={() => setActive(null)}
             className={cn(
-                "relative rounded-full border backdrop-blur-xl flex justify-center space-x-4 px-8 py-6 transition-all duration-500",
+                "relative rounded-full border backdrop-blur-xl flex justify-center space-x-1.5 sm:space-x-2 md:space-x-4 px-3 py-2.5 md:px-8 md:py-6 transition-all duration-500",
                 isDark
                     ? "border-white/15 bg-white/5 shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.15),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.15),inset_0_0_6px_6px_rgba(255,255,255,0.04),0_0_12px_rgba(255,255,255,0.06)]"
                     : "border-slate-200/60 bg-white/60 shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.06),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.5),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.5),inset_0_0_6px_6px_rgba(255,255,255,0.1)]"
@@ -183,10 +194,27 @@ export const ProductItem = ({
     );
 };
 
-export const HoveredLink = ({ children, isDark = true, ...rest }: any) => {
+export const HoveredLink = ({ children, isDark = true, href, ...rest }: any) => {
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (href) {
+            if (href.startsWith("/")) {
+                window.location.href = href;
+            } else if (href.startsWith("#")) {
+                const el = document.querySelector(href);
+                if (el) {
+                    el.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    window.location.href = "/" + href;
+                }
+            }
+        }
+    };
     return (
         <a
             {...rest}
+            href={href}
+            onClick={handleClick}
             className={cn(
                 "transition-colors duration-500 cursor-pointer",
                 isDark
