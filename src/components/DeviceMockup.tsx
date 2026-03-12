@@ -1,12 +1,49 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, AnimatePresence } from "framer-motion";
+import { ActiveItem } from "@/app/page";
 
-export default function DeviceMockup() {
+const defaultItems: ActiveItem[] = [
+    { 
+        title: "Enterprise Web", 
+        description: "Scalable foundations built for modern digital ecosystems.", 
+        tags: ["React", "Next.js", "Enterprise"] 
+    },
+    { 
+        title: "Mobile First", 
+        description: "Native-feel experiences across iOS and Android.", 
+        tags: ["React Native", "UI/UX", "Mobile"] 
+    },
+    { 
+        title: "Product Strategy", 
+        description: "Data-driven roadmaps to navigate the digital era.", 
+        tags: ["Consulting", "MVP", "Strategy"] 
+    },
+];
+
+interface DeviceMockupProps {
+    activeItem: ActiveItem | null;
+}
+
+export default function DeviceMockup({ activeItem }: DeviceMockupProps) {
     const phoneRef = useRef<HTMLDivElement>(null);
     const laptopRef = useRef<HTMLDivElement>(null);
+    const [cycleIndex, setCycleIndex] = useState(0);
+
+    // Auto-cycle logic for mobile and default state
+    useEffect(() => {
+        if (!activeItem) {
+            const interval = setInterval(() => {
+                setCycleIndex((prev) => (prev + 1) % defaultItems.length);
+            }, 3000);
+            return () => clearInterval(interval);
+        }
+    }, [activeItem]);
+
+    const displayItem = activeItem || defaultItems[cycleIndex];
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -42,6 +79,8 @@ export default function DeviceMockup() {
             };
 
             const activateLaptopScreen = (activeKey: keyof typeof laptopStates) => {
+                // If we have an activeItem (hover), we don't switch these states visually
+                // as the dynamic screen will overlay them.
                 Object.keys(laptopStates).forEach((key) => {
                     const k = key as keyof typeof laptopStates;
                     gsap.to(laptopStates[k], {
@@ -209,13 +248,14 @@ export default function DeviceMockup() {
     }, []);
 
     return (
-        <div className="device-wrapper hidden md:flex fixed inset-0 items-center justify-center pointer-events-none z-[40] perspective-2000 transition-transform duration-700"
+        <div className="device-wrapper fixed inset-0 flex items-center justify-center pointer-events-none z-[40] perspective-2000 transition-transform duration-700"
              style={{ scale: "clamp(0.4, 65vw / 1200, 1)" }}>
-            {/* ═══ PHONE DEVICE ═══ */}
+            
+            {/* ═══ PHONE DEVICE (Desktop Only) ═══ */}
             <div
                 ref={phoneRef}
                 style={{ opacity: 0 }}
-                className="device absolute w-[280px] h-[580px] md:w-[320px] md:h-[660px] bg-white border-[12px] border-slate-900 rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.1)] transform-style-3d will-change-transform"
+                className="device hidden md:block absolute w-[320px] h-[660px] bg-white border-[12px] border-slate-900 rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.1)] transform-style-3d will-change-transform"
             >
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-8 bg-slate-900 rounded-b-2xl z-20" />
                 <div className="device-screen absolute inset-0 bg-white rounded-[2.2rem] overflow-hidden">
@@ -259,112 +299,73 @@ export default function DeviceMockup() {
                 className="device absolute transform-style-3d will-change-transform"
             >
                 {/* Laptop Lid / Screen */}
-                <div className="relative w-[520px] h-[340px] md:w-[640px] md:h-[400px] bg-white border-[8px] border-slate-900 rounded-2xl shadow-[0_50px_100px_rgba(0,0,0,0.12)] overflow-hidden">
+                <div className="relative w-[340px] h-[220px] sm:w-[520px] sm:h-[340px] md:w-[640px] md:h-[400px] bg-white border-[6px] md:border-[8px] border-slate-900 rounded-xl md:rounded-2xl shadow-[0_50px_100px_rgba(0,0,0,0.12)] overflow-hidden">
                     {/* Camera dot */}
-                    <div className="absolute top-[6px] left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-400 rounded-full z-20" />
+                    <div className="absolute top-[6px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 bg-slate-400 rounded-full z-20" />
+                    
                     {/* Screen content area */}
                     <div className="laptop-screen absolute inset-0 bg-white overflow-hidden">
-                        {/* JAYPLE PORTFOLIO STATE */}
-                        <div className="screen-state laptop-jayple-portfolio-state absolute inset-0 p-0 flex flex-col opacity-1">
-                            <div className="h-10 bg-slate-50 border-b border-slate-100 flex items-center px-4 gap-2">
-                                <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                                <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                                <div className="h-5 flex-1 bg-white border border-slate-200 rounded-lg ml-3 flex items-center px-3">
-                                    <div className="h-2 w-24 bg-slate-200 rounded" />
+                        {/* Static/Scroll-based states (Fallback) */}
+                        <div className="absolute inset-0 z-0">
+                            <div className="screen-state laptop-jayple-portfolio-state absolute inset-0 opacity-1 bg-slate-50 flex items-center justify-center p-8">
+                                <div className="text-center space-y-4">
+                                    <div className="w-12 h-12 bg-slate-200 rounded-full mx-auto" />
+                                    <div className="h-4 w-32 bg-slate-200 rounded mx-auto" />
                                 </div>
                             </div>
-                            <div className="p-6 flex flex-col gap-4 flex-1">
-                                <div className="h-28 bg-gradient-to-br from-slate-100 to-slate-50 rounded-xl flex items-center justify-center">
-                                    <div className="text-center">
-                                        <div className="h-3 w-16 bg-slate-900/30 rounded mx-auto mb-2" />
-                                        <div className="h-2 w-28 bg-slate-900/10 rounded mx-auto" />
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-4 gap-3">
-                                    <div className="h-20 bg-slate-100 rounded-lg p-3 flex flex-col justify-between">
-                                        <div className="w-6 h-6 rounded bg-slate-200" />
-                                        <div className="h-1.5 w-12 bg-slate-200 rounded" />
-                                    </div>
-                                    <div className="h-20 bg-slate-100 rounded-lg p-3 flex flex-col justify-between">
-                                        <div className="w-6 h-6 rounded bg-slate-200" />
-                                        <div className="h-1.5 w-12 bg-slate-200 rounded" />
-                                    </div>
-                                    <div className="h-20 bg-slate-100 rounded-lg p-3 flex flex-col justify-between">
-                                        <div className="w-6 h-6 rounded bg-slate-200" />
-                                        <div className="h-1.5 w-12 bg-slate-200 rounded" />
-                                    </div>
-                                    <div className="h-20 bg-slate-100 rounded-lg p-3 flex flex-col justify-between">
-                                        <div className="w-6 h-6 rounded bg-slate-200" />
-                                        <div className="h-1.5 w-12 bg-slate-200 rounded" />
-                                    </div>
-                                </div>
-                                <div className="flex gap-4 flex-1">
-                                    <div className="flex-1 bg-slate-50 border border-slate-100 rounded-xl p-4 flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0" />
-                                        <div className="flex-1">
-                                            <div className="h-2 w-20 bg-slate-300 rounded mb-2" />
-                                            <div className="h-1.5 w-32 bg-slate-200 rounded" />
-                                        </div>
-                                        <div className="h-8 w-20 bg-slate-900 rounded-lg" />
-                                    </div>
-                                    <div className="flex-1 bg-slate-50 border border-slate-100 rounded-xl p-4 flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0" />
-                                        <div className="flex-1">
-                                            <div className="h-2 w-24 bg-slate-300 rounded mb-2" />
-                                            <div className="h-1.5 w-28 bg-slate-200 rounded" />
-                                        </div>
-                                        <div className="h-8 w-20 bg-slate-200 rounded-lg" />
-                                    </div>
-                                </div>
+                            <div className="screen-state laptop-genfess-portfolio-state absolute inset-0 opacity-0 bg-slate-100">
+                                <img src="/GenfessLancher.png" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="screen-state laptop-case-state absolute inset-0 opacity-0">
+                                <img src="/racks.png" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="screen-state laptop-fruithouse-state absolute inset-0 opacity-0">
+                                <img src="/fruithouse.png" className="w-full h-full object-cover" />
+                            </div>
+                            <div className="screen-state laptop-vks-state absolute inset-0 opacity-0">
+                                <img src="/vks.png" className="w-full h-full object-cover" />
                             </div>
                         </div>
 
-                        {/* GENFESS PORTFOLIO STATE */}
-                        <div className="screen-state laptop-genfess-portfolio-state absolute inset-0 opacity-0 translate-y-5">
-                            <img
-                                src="/GenfessLancher.png"
-                                alt="Genfess Launcher"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-
-                        {/* CASE STUDY — Racks Madurai */}
-                        <div className="screen-state laptop-case-state absolute inset-0 opacity-0 translate-y-5">
-                            <img
-                                src="/racks.png"
-                                alt="Racks Madurai"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-
-                        {/* CASE STUDY — Fruit House */}
-                        <div className="screen-state laptop-fruithouse-state absolute inset-0 opacity-0 translate-y-5">
-                            <img
-                                src="/fruithouse.png"
-                                alt="Fruit House"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-
-                        {/* CASE STUDY — VKS Decoration */}
-                        <div className="screen-state laptop-vks-state absolute inset-0 opacity-0 translate-y-5">
-                            <img
-                                src="/vks.png"
-                                alt="VKS Decoration"
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
+                        {/* DYNAMIC OVERLAY (Interactive/Auto-cycle) */}
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={displayItem?.title}
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                className="absolute inset-0 bg-white z-10 flex flex-col p-8 md:p-12"
+                            >
+                                <div className="flex-grow flex flex-col justify-center">
+                                    <h3 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 tracking-tighter leading-tight">
+                                        {displayItem?.title}
+                                    </h3>
+                                    <p className="text-sm md:text-lg text-slate-500 font-medium leading-relaxed max-w-sm">
+                                        {displayItem?.description}
+                                    </p>
+                                </div>
+                                <div className="flex flex-wrap gap-2 md:gap-3">
+                                    {displayItem?.tags.map((tag) => (
+                                        <span key={tag} className="px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[9px] md:text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
+
                 {/* Laptop Keyboard Base */}
                 <div className="relative mx-auto" style={{ width: "110%", marginLeft: "-5%" }}>
-                    <div className="h-3 bg-gradient-to-b from-slate-800 to-slate-700 rounded-t-sm" />
-                    <div className="h-[14px] bg-gradient-to-b from-slate-300 to-slate-400 rounded-b-xl flex items-center justify-center">
-                        <div className="w-16 h-[4px] bg-slate-400/60 rounded-full" />
+                    <div className="h-2 md:h-3 bg-gradient-to-b from-slate-800 to-slate-700 rounded-t-sm" />
+                    <div className="h-[10px] md:h-[14px] bg-gradient-to-b from-slate-300 to-slate-400 rounded-b-xl flex items-center justify-center">
+                        <div className="w-12 md:w-16 h-[3px] md:h-[4px] bg-slate-400/60 rounded-full" />
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+

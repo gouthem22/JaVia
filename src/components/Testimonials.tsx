@@ -33,30 +33,6 @@ const featuredReviews = [
     }
 ];
 
-const moreReviews = [
-    {
-        name: "Racksmadurai",
-        role: "Retail Infrastructure",
-        text: "JaVia transformed our digital presence. Their engineering team delivered a platform that perfectly showcases our complex inventory. Highly recommended for enterprise-grade solutions.",
-        rating: 5,
-        date: "2 months ago"
-    },
-    {
-        name: "Fruit House",
-        role: "F&B Business Owner",
-        text: "The mobile-first approach JaVia took for our menu ordering system has significantly increased our online engagement. The integration with WhatsApp is seamless.",
-        rating: 5,
-        date: "1 month ago"
-    },
-    {
-        name: "VKS Decoration",
-        role: "Event Services",
-        text: "Efficient, professional, and creative. Our new website has helped us reach a much wider audience in Trichy. The 24-hour delivery showcase is a hit.",
-        rating: 5,
-        date: "3 weeks ago"
-    }
-];
-
 const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sca_esv=04b991333a83f57d&rlz=1C1GCEA_enIN1186IN1186&sxsrf=ANbL-n6c9kFyooSF2qx37fMHEKQuNwibZg:1773030697363&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOa25eGEigaK_EX__-WqAnmOlngWb2iDxAdy692EUVAKjZhUYqX5l74L_zSIyxxGG39oyuM3lANRt8-8x6-AlzDyIdpyN&q=Javia+Ventures+Reviews&sa=X&ved=2ahUKEwj4lpGH_pGTAxV2TWcHHQyRAoYQ0bkNegQIMhAH&biw=1280&bih=551&dpr=1.5";
 
 export default function Testimonials() {
@@ -154,46 +130,6 @@ export default function Testimonials() {
                         <span className="font-bold text-slate-800 tracking-tight">View All Reviews on Google</span>
                         <ExternalLink size={18} className="ml-3 text-slate-400 group-hover:text-primary transition-colors" />
                     </a>
-                </div>
-
-                {/* Divider for More Testimonials */}
-                <div className="relative pt-24 pb-8">
-                    <div className="absolute inset-x-0 top-1/2 h-px bg-slate-200" />
-                    <div className="relative flex justify-center">
-                        <span className="bg-[#F8FAFC] px-6 text-slate-400 text-[10px] font-bold tracking-widest uppercase">More Testimonials</span>
-                    </div>
-                </div>
-
-                {/* More Testimonials Grid */}
-                <div className="grid md:grid-cols-3 gap-6">
-                    {moreReviews.map((review, index) => (
-                        <div
-                            key={index}
-                            className="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-lg transition-all duration-500 relative overflow-hidden group"
-                        >
-                            <Quote className="absolute -top-3 -right-3 w-16 h-16 text-primary opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" />
-
-                            <div className="flex items-center gap-1 text-amber-400 mb-6">
-                                {[...Array(review.rating)].map((_, i) => (
-                                    <Star key={i} size={14} fill="currentColor" stroke="none" />
-                                ))}
-                            </div>
-
-                            <p className="text-slate-600 text-[13px] mb-8 leading-relaxed font-medium italic">
-                                "{review.text}"
-                            </p>
-
-                            <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary font-black text-base border border-primary/10">
-                                    {review.name.charAt(0)}
-                                </div>
-                                <div className="flex flex-col">
-                                    <h4 className="font-bold text-slate-900 text-sm leading-tight">{review.name}</h4>
-                                    <span className="text-[10px] text-primary font-bold uppercase tracking-wider mt-1">{review.role}</span>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
                 </div>
             </div>
         </section>

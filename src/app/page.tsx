@@ -12,6 +12,12 @@ import Footer from "@/components/Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+export type ActiveItem = {
+  title: string;
+  description: string;
+  tags: string[];
+};
+
 export default function Home() {
   const jaypleRef = useRef<HTMLDivElement>(null);
   const genfessRef = useRef<HTMLDivElement>(null);
@@ -25,6 +31,8 @@ export default function Home() {
   const blogRef = useRef<HTMLDivElement>(null);
   const faqsRef = useRef<HTMLDivElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  const [activeItem, setActiveItem] = React.useState<ActiveItem | null>(null);
 
   // Slow down the video for ambient cinematic feel
   const handleVideoReady = useCallback(() => {
@@ -92,10 +100,10 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <DeviceMockup />
+      <DeviceMockup activeItem={activeItem} />
 
       {/* SECTION 1 — HERO */}
-      <section id="home" className="relative w-full min-h-screen flex items-center md:items-end px-6 md:px-12 pt-[var(--navbar-height)] pb-12 md:pb-24 overflow-hidden bg-black">
+      <section id="home" className="relative w-full min-h-screen flex items-center md:items-end px-6 md:px-12 lg:px-16 xl:px-24 pt-24 md:pt-28 lg:pt-32 xl:pt-36 pb-12 md:pb-16 lg:pb-20 xl:pb-24 overflow-hidden bg-black">
         <video
           ref={heroVideoRef}
           autoPlay
@@ -112,11 +120,11 @@ export default function Home() {
         <div className="absolute inset-0" style={{ zIndex: 1, background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%)" }} />
 
         <div className="relative w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end justify-between gap-12" style={{ zIndex: 2 }}>
-          <div className="space-y-8 max-w-4xl text-center md:text-left">
+          <div className="space-y-8 max-w-2xl text-center md:text-left pb-8 md:pb-12 lg:pb-16">
             <h1
               className="font-normal uppercase tracking-tighter"
-              style={{ 
-                fontFamily: "var(--font-bebas)", 
+              style={{
+                fontFamily: "var(--font-bebas)",
                 color: "#9ca3af",
                 fontSize: "clamp(2.5rem, calc(2rem + 8vw), 11rem)",
                 lineHeight: "0.85",
@@ -215,7 +223,7 @@ export default function Home() {
 
       {/* NEW SECTION — SERVICES */}
       <div ref={servicesRef}>
-        <Services />
+        <Services setActiveItem={setActiveItem} />
       </div>
 
       {/* NEW SECTION — TESTIMONIALS */}
@@ -229,7 +237,16 @@ export default function Home() {
       </div>
 
       {/* SECTION 3A — JAYPLE PORTFOLIO */}
-      <section id="jayple-portfolio" className="w-full py-32 md:py-48 px-4 bg-white">
+      <section 
+        id="jayple-portfolio" 
+        className="w-full py-32 md:py-48 px-4 bg-white"
+        onMouseEnter={() => setActiveItem({
+          title: "Jayple Launcher",
+          description: "Digital storefront for the grooming appointment platform.",
+          tags: ["Booking System", "SaaS", "Responsive"]
+        })}
+        onMouseLeave={() => setActiveItem(null)}
+      >
         <div ref={jayplePortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="space-y-8">
             <div className="space-y-3">
@@ -264,7 +281,16 @@ export default function Home() {
       </section>
 
       {/* SECTION 3B — GENFESS PORTFOLIO */}
-      <section id="genfess-portfolio" className="w-full py-32 md:py-48 px-4 bg-secondary-bg">
+      <section 
+        id="genfess-portfolio" 
+        className="w-full py-32 md:py-48 px-4 bg-secondary-bg"
+        onMouseEnter={() => setActiveItem({
+          title: "Genfess Platform",
+          description: "Anonymous campus interaction platform for college communities.",
+          tags: ["Anonymity", "Community", "Privacy"]
+        })}
+        onMouseLeave={() => setActiveItem(null)}
+      >
         <div ref={genfessPortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
@@ -299,7 +325,16 @@ export default function Home() {
       </section>
 
       {/* SECTION 4 — CLIENT SUCCESS STORY (Racksmadurai) */}
-      <section id="success" className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100">
+      <section 
+        id="success" 
+        className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100"
+        onMouseEnter={() => setActiveItem({
+          title: "Racksmadurai",
+          description: "Retail infrastructure & complex inventory management.",
+          tags: ["Retail", "Inventory", "Catalog"]
+        })}
+        onMouseLeave={() => setActiveItem(null)}
+      >
         <div ref={successRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="space-y-8">
             <div className="space-y-3">
@@ -335,7 +370,16 @@ export default function Home() {
       </section>
 
       {/* SECTION 4B — FRUIT HOUSE CASE STUDY */}
-      <section id="fruithouse" className="w-full py-32 md:py-48 px-4 bg-secondary-bg">
+      <section 
+        id="fruithouse" 
+        className="w-full py-32 md:py-48 px-4 bg-secondary-bg"
+        onMouseEnter={() => setActiveItem({
+          title: "Fruit House",
+          description: "Fresh, healthy food with seamless WhatsApp ordering.",
+          tags: ["F&B", "WhatsApp", "Mobile-First"]
+        })}
+        onMouseLeave={() => setActiveItem(null)}
+      >
         <div ref={fruithouseRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
@@ -371,7 +415,16 @@ export default function Home() {
       </section>
 
       {/* SECTION 4C — VKS DECORATION CASE STUDY */}
-      <section id="vks" className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100">
+      <section 
+        id="vks" 
+        className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100"
+        onMouseEnter={() => setActiveItem({
+          title: "VKS Decoration",
+          description: "Wedding & floral decor with local digital ordering.",
+          tags: ["Events", "Floral", "Local"]
+        })}
+        onMouseLeave={() => setActiveItem(null)}
+      >
         <div ref={vksRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="space-y-8">
             <div className="space-y-3">
