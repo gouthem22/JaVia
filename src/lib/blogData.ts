@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     date: "March 10, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/saas-trends-2026/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80",
     sections: [
       {
         body: [
@@ -103,7 +103,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     date: "March 8, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/enterprise-web-checklist/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
     sections: [
       {
         body: [
@@ -179,7 +179,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "9 min read",
     date: "March 5, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/how-we-built-jayple/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&q=80",
     sections: [
       {
         body: [
@@ -247,7 +247,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     date: "March 2, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/mobile-app-india-2026/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
     sections: [
       {
         body: [
@@ -307,7 +307,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     date: "Feb 28, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/ui-ux-saas-design/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
     sections: [
       {
         body: [
@@ -371,7 +371,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     date: "Feb 25, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/client-website-roi/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80",
     sections: [
       {
         body: [
@@ -433,7 +433,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min read",
     date: "Feb 20, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/genfess-campus-story/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80",
     sections: [
       {
         body: [
@@ -488,7 +488,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     date: "Feb 15, 2026",
     author: "JaVia Ventures",
-    coverImage: "/blogs/digital-consulting-india/cover.jpg",
+    coverImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=85",
     sections: [
       {
         body: [

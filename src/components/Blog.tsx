@@ -9,68 +9,62 @@ const displayedPosts = blogPosts.slice(0, 3);
 
 export default function Blog() {
     return (
-        <section id="blog" className="w-full py-24 md:py-32 px-4 bg-[#faf9f7] border-b border-stone-200/60">
-            <div className="max-w-6xl mx-auto space-y-16">
-                <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-                    <div className="space-y-4 max-w-2xl">
-                        <span className="text-amber-600/70 font-bold tracking-widest uppercase text-sm">Insights</span>
-                        <h2 className="text-4xl md:text-5xl font-bold text-stone-900 leading-tight">
+        <section id="blog" className="w-full bg-white border-t border-gray-100 py-20 md:py-28 px-4">
+            <div className="max-w-6xl mx-auto">
+                <div className="mb-16 md:mb-24 space-y-4 max-w-2xl text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-8">
+                    <div className="space-y-4">
+                        <span className="text-gray-400 font-medium tracking-[0.2em] uppercase text-[10px]">Insights</span>
+                        <h2 className="text-4xl font-bold text-[#0f1f2e] tracking-tight">
                             Forward Thinking <br />
-                            <span className="italic">Digital Perspectives</span>
+                            <span className="text-gray-400 font-normal italic">Digital Perspectives</span>
                         </h2>
                     </div>
                     <Link
                         href="/blog"
-                        className="px-8 py-4 bg-amber-600 text-white font-bold rounded-full hover:bg-amber-700 transition-all hover:-translate-y-1"
+                        className="px-4 py-2 border border-gray-200 text-gray-600 text-sm font-medium rounded-full hover:border-orange-400 hover:text-orange-500 transition-all mb-2"
                     >
                         View All Articles
                     </Link>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                     {displayedPosts.map((post) => (
-                        <article
+                        <div
                             key={post.slug}
-                            className="group cursor-pointer"
+                            className="border border-gray-200 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full overflow-hidden"
                         >
-                            <Link href={`/blog/${post.slug}`}>
-                                <div className="relative aspect-[16/10] overflow-hidden rounded-3xl mb-6 bg-stone-100">
-                                    <img
-                                        src={post.coverImage}
-                                        alt={post.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                    <div className="absolute top-4 left-4">
-                                        <span className="px-3 py-1.5 bg-amber-500/90 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
-                                            {post.category}
-                                        </span>
-                                    </div>
+                            <img
+                                src={post.coverImage}
+                                alt={post.title}
+                                className="w-full h-44 object-cover"
+                            />
+                            <div className="p-6 flex flex-col flex-grow">
+                                <div className="bg-gray-50 rounded-lg p-2 w-fit">
+                                    <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">
+                                        {post.category}
+                                    </span>
                                 </div>
-                            </Link>
 
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-4 text-stone-400 text-xs font-bold uppercase tracking-widest">
-                                    <span className="flex items-center gap-1"><Clock size={14} /> {post.readTime}</span>
-                                    <span>{post.date}</span>
-                                </div>
-                                <Link href={`/blog/${post.slug}`}>
-                                    <h3 className="text-xl font-bold text-stone-900 group-hover:text-amber-700 transition-colors leading-snug">
-                                        {post.title}
-                                    </h3>
-                                </Link>
-                                <p className="text-stone-500 text-sm leading-relaxed line-clamp-2">
+                                <p className="text-[11px] text-gray-400 mt-4 flex items-center gap-1.5 font-medium uppercase tracking-wider">
+                                    <Clock size={12} className="stroke-[1.5px]" /> {post.readTime} · {post.date}
+                                </p>
+
+                                <h3 className="text-lg font-bold text-[#0f1f2e] mt-2 leading-snug group-hover:text-orange-500 transition-colors">
+                                    {post.title}
+                                </h3>
+
+                                <p className="text-sm text-gray-500 leading-relaxed mt-2 line-clamp-3">
                                     {post.excerpt}
                                 </p>
-                                <div className="pt-2">
-                                    <Link
-                                        href={`/blog/${post.slug}`}
-                                        className="inline-flex items-center gap-1 text-amber-700 font-bold text-xs uppercase tracking-widest group-hover:gap-2 transition-all"
-                                    >
-                                        Read Article <ArrowUpRight size={16} />
-                                    </Link>
-                                </div>
+
+                                <Link
+                                    href={`/blog/${post.slug}`}
+                                    className="mt-8 border border-gray-200 rounded-full px-3 py-1.5 text-[11px] font-semibold text-gray-500 hover:text-orange-500 hover:border-orange-300 w-fit flex items-center gap-1.5 transition-all"
+                                >
+                                    Read Article <ArrowUpRight size={12} strokeWidth={2.5} />
+                                </Link>
                             </div>
-                        </article>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -5,8 +5,9 @@ import { MessageCircle, Mail, Globe } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="w-full pt-24 pb-12 px-4 bg-white border-t border-slate-100">
-            <div className="max-w-6xl mx-auto">
+        <footer className="w-full bg-white border-t border-slate-100">
+            {/* 1. Main Footer Section */}
+            <div className="max-w-6xl mx-auto pt-24 pb-12 px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="md:col-span-2 space-y-6">
@@ -51,17 +52,138 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div className="pt-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-slate-400 text-sm">
-                        © 2026 JaVia. All rights reserved.
-                    </p>
-                    <div className="flex gap-8">
-                        <a href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Privacy Policy</a>
-                        <a href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Terms of Service</a>
+            {/* 2. SEO Tag Clouds Section */}
+            <div className="w-full border-t border-b border-gray-100 py-10 px-6 md:px-12 lg:px-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+                    {/* Column 1 */}
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                            Our Services
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {[
+                                "Website Design & Development",
+                                "SaaS Product Development", 
+                                "Mobile App Development",
+                                "UI/UX Design",
+                                "Digital Consulting",
+                                "WhatsApp Ordering System",
+                                "CMS Integration",
+                                "Enterprise Web Platforms",
+                                "SEO Optimization",
+                                "Figma to Development"
+                            ].map(tag => (
+                                <span 
+                                    key={tag}
+                                    className="text-xs text-gray-500 border border-gray-200 rounded-full px-3 py-1 cursor-default"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Column 2 */}
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
+                            Trending Topics
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {[
+                                "SaaS Development India",
+                                "Enterprise Web Design",
+                                "React Next.js Agency",
+                                "Startup MVP Development",
+                                "Indian SaaS Ecosystem",
+                                "Mobile App India",
+                                "WhatsApp Business Integration",
+                                "Digital Products Tamil Nadu",
+                                "B2B Web Platforms",
+                                "Grooming App Development",
+                                "College Community Platform",
+                                "Retail Web Solutions"
+                            ].map(tag => (
+                                <span 
+                                    key={tag}
+                                    className="text-xs text-gray-500 border border-gray-200 rounded-full px-3 py-1 cursor-default"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* 3. Bottom Bar & SEO Tagline */}
+            <div className="max-w-6xl mx-auto py-12 px-4">
+                <div className="flex flex-col items-center gap-6">
+                    <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6">
+                        <p className="text-slate-400 text-sm">
+                            © 2026 JaVia. All rights reserved.
+                        </p>
+                        <div className="flex gap-8">
+                            <a href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Privacy Policy</a>
+                            <a href="#" className="text-slate-400 hover:text-slate-600 text-sm transition-colors font-medium">Terms of Service</a>
+                        </div>
+                    </div>
+                    
+                    {/* SEO Tagline */}
+                    <p className="text-xs text-gray-400 text-center mt-2">
+                        © 2026 JaVia Ventures · 
+                        <a href="https://javia.studio" className="hover:text-orange-500 transition-colors mx-1">
+                            javia.studio
+                        </a> 
+                        · Enterprise Web & SaaS Development, India
+                    </p>
+                </div>
+            </div>
+
+            {/* Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "Organization",
+                    "name": "JaVia Ventures",
+                    "url": "https://javia.studio",
+                    "logo": "https://javia.studio/logo.png",
+                    "sameAs": [
+                        "https://www.linkedin.com/company/javia-ventures",
+                        "https://instagram.com/javia.studio"
+                    ],
+                    "contactPoint": {
+                        "@type": "ContactPoint",
+                        "contactType": "customer service",
+                        "availableLanguage": ["English", "Tamil"]
+                    },
+                    "areaServed": "IN",
+                    "description": "JaVia Ventures builds scalable digital products and enterprise-grade web platforms for Indian businesses."
+                    })
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "name": "JaVia Ventures",
+                    "url": "https://javia.studio",
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://javia.studio/?s={search_term_string}"
+                        },
+                        "query-input": "required name=search_term_string"
+                    }
+                    })
+                }}
+            />
         </footer>
     );
 }

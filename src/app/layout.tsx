@@ -15,6 +15,28 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: "https://javia.studio",
+  },
+  openGraph: {
+    siteName: "JaVia Ventures",
+    locale: "en_IN",
+  },
+  other: {
+    "geo.region": "IN-TN",
+    "geo.placename": "Tamil Nadu, India",
+  },
 };
 
 export default function RootLayout({

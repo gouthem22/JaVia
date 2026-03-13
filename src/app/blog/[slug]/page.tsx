@@ -32,22 +32,26 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-[#faf9f7]">
       {/* ═══ HERO ═══ */}
-      <section className="relative w-full min-h-[70vh] flex items-end overflow-hidden">
+      <section className="relative w-full h-[420px] md:h-[520px] flex items-end overflow-hidden">
         <img
           src={post.coverImage}
           alt={post.title}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-[#0c0a09]/50 to-[#0c0a09]/10" />
+        <div 
+          className="absolute inset-0 z-10" 
+          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.72))" }}
+        />
 
-        <div className="relative w-full max-w-5xl mx-auto px-6 md:px-12 pb-12 md:pb-20 pt-32 z-10">
+        <div className="relative w-full max-w-5xl mx-auto px-6 md:px-12 pb-12 md:pb-20 pt-32 z-20">
           <div className="space-y-6 max-w-3xl">
             <span className="inline-block px-4 py-1.5 bg-amber-500/90 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
               {post.category}
             </span>
 
             <h1
-              className="text-white leading-[1.1] font-semibold"
+              className="!text-white leading-[1.1] font-semibold"
               style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
             >
               {post.title}
@@ -164,18 +168,18 @@ export default async function BlogPostPage({ params }: PageProps) {
       </article>
 
       {/* ═══ RELATED ARTICLES ═══ */}
-      <section className="border-t border-stone-200/60 bg-stone-50/50">
+      <section className="border-t border-stone-200/5 bg-[#0c0a09]">
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-20">
           <div className="flex items-center justify-between mb-12">
             <h3
-              className="text-stone-900 font-semibold"
+              className="text-white font-semibold"
               style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.25rem, 2vw, 1.75rem)" }}
             >
               Continue Reading
             </h3>
             <Link
               href="/blog"
-              className="text-stone-400 hover:text-amber-700 text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1"
+              className="text-gray-500 hover:text-orange-500 text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1"
             >
               All Articles <ArrowUpRight size={14} />
             </Link>
@@ -184,22 +188,22 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="grid md:grid-cols-3 gap-10">
             {relatedPosts.map((rPost) => (
               <Link key={rPost.slug} href={`/blog/${rPost.slug}`} className="group">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-5 bg-stone-100">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-5 bg-stone-900 border border-white/5">
                   <img
                     src={rPost.coverImage}
                     alt={rPost.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 bg-amber-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider rounded-full">
+                    <span className="px-3 py-1 bg-orange-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider rounded-full">
                       {rPost.category}
                     </span>
                   </div>
                 </div>
                 <div className="space-y-2.5">
-                  <p className="text-stone-400 text-[11px] font-bold uppercase tracking-widest">{rPost.readTime} · {rPost.date}</p>
+                  <p className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">{rPost.readTime} · {rPost.date}</p>
                   <h4
-                    className="text-stone-900 group-hover:text-amber-700 transition-colors leading-snug font-semibold"
+                    className="!text-white group-hover:text-orange-400 transition-colors leading-snug font-semibold"
                     style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
                   >
                     {rPost.title}

@@ -331,27 +331,27 @@ export default function DeviceMockup({ activeItem }: DeviceMockupProps) {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={displayItem?.title}
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -4 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
                                 transition={{ duration: 0.4, ease: "easeOut" }}
-                                className="absolute inset-0 bg-white z-10 flex flex-col p-8 md:p-12"
+                                className="absolute inset-0 bg-white z-10"
                             >
-                                <div className="flex-grow flex flex-col justify-center">
-                                    <h3 className="text-2xl md:text-4xl font-black text-slate-900 mb-4 tracking-tighter leading-tight">
-                                        {displayItem?.title}
-                                    </h3>
-                                    <p className="text-sm md:text-lg text-slate-500 font-medium leading-relaxed max-w-sm">
-                                        {displayItem?.description}
-                                    </p>
-                                </div>
-                                <div className="flex flex-wrap gap-2 md:gap-3">
-                                    {displayItem?.tags.map((tag) => (
-                                        <span key={tag} className="px-3 py-1 bg-slate-50 border border-slate-100 rounded-full text-[9px] md:text-[11px] font-bold text-slate-400 uppercase tracking-widest">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
+                                {displayItem && (
+                                    <img
+                                        src={
+                                            displayItem.title === "Racksmadurai" ? "/racks.png" :
+                                            displayItem.title === "VKS Decoration" ? "/vks.png" :
+                                            displayItem.title === "Fruit House" ? "/fruithouse.png" :
+                                            displayItem.title === "Genfess Platform" ? "/GenfessLancher.png" :
+                                            displayItem.title === "Jayple Launcher" ? "/GenfessLancher.png" :
+                                            "/racks.png" // Fallback
+                                        }
+                                        alt={`${displayItem.title} screenshot`}
+                                        className="w-full h-full object-cover object-top"
+                                        loading="lazy"
+                                    />
+                                )}
                             </motion.div>
                         </AnimatePresence>
                     </div>
