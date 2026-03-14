@@ -50,9 +50,9 @@ interface ServicesProps {
 
 export default function Services({ setActiveItem }: ServicesProps) {
     return (
-        <section id="services" className="w-full py-24 md:py-32 px-4 bg-white">
+        <section id="services" className="w-full py-10 md:py-32 px-4 bg-white">
             <div className="max-w-6xl mx-auto">
-                <div className="mb-16 md:mb-24 space-y-4 max-w-2xl text-center md:text-left">
+                <div className="mb-8 md:mb-24 space-y-4 max-w-2xl text-center md:text-left">
                     <span className="text-slate-400 font-medium tracking-[0.2em] uppercase text-[10px]">What we do</span>
                     <h2 className="text-3xl md:text-4xl text-slate-900 font-semibold tracking-tight">
                         Specialized engineering for <br />

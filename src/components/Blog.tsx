@@ -9,9 +9,9 @@ const displayedPosts = blogPosts.slice(0, 3);
 
 export default function Blog() {
     return (
-        <section id="blog" className="w-full bg-white border-t border-gray-100 py-20 md:py-28 px-4">
+        <section id="blog" className="w-full bg-white border-t border-gray-100 py-10 md:py-28 px-4">
             <div className="max-w-6xl mx-auto">
-                <div className="mb-16 md:mb-24 space-y-4 max-w-2xl text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-8">
+                <div className="mb-8 md:mb-24 space-y-4 max-w-2xl text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-8">
                     <div className="space-y-4">
                         <span className="text-gray-400 font-medium tracking-[0.2em] uppercase text-[10px]">Insights</span>
                         <h2 className="text-4xl font-bold text-[#0f1f2e] tracking-tight">

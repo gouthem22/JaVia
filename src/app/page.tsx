@@ -163,12 +163,41 @@ export default function Home() {
       </section>
 
       {/* SECTION 2 — FLAGSHIP PRODUCTS */}
-      <section id="products" className="w-full py-32 md:py-48 px-4 bg-secondary-bg">
-        <div className="max-w-7xl mx-auto space-y-[45vh]">
+      <section id="products" className="w-full py-10 md:py-48 px-4 bg-secondary-bg">
+        <div className="max-w-7xl mx-auto space-y-20 md:space-y-[45vh]">
           {/* Jayple */}
-          <div id="jayple" ref={jaypleRef} className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+          <div id="jayple" ref={jaypleRef} className="grid md:grid-cols-2 gap-8 md:gap-24 items-center">
             <div className="space-y-8">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Flagship Product</span>
+              <div className="block md:hidden w-full h-52 rounded-xl overflow-hidden bg-[#0f1f2e] p-4 mt-4">
+                {/* Fake app header */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white text-xs font-bold tracking-wide">
+                    Jayple
+                  </span>
+                  <div className="w-6 h-6 rounded-full bg-orange-500" />
+                </div>
+                {/* Fake booking card */}
+                <div className="bg-white/10 rounded-lg p-3 mb-2">
+                  <div className="w-24 h-2 bg-white/40 rounded mb-2" />
+                  <div className="w-16 h-2 bg-white/20 rounded" />
+                </div>
+                {/* Fake time slots */}
+                <div className="flex gap-2 mb-3">
+                  {["10:00", "11:30", "2:00", "4:30"].map(t => (
+                    <div key={t} 
+                         className="bg-orange-500/80 rounded-md px-2 py-1">
+                      <span className="text-white text-[10px]">{t}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Fake CTA */}
+                <div className="w-full bg-orange-500 rounded-lg py-2 flex items-center justify-center">
+                  <span className="text-white text-xs font-semibold">
+                    Book Appointment
+                  </span>
+                </div>
+              </div>
               <h2 className="text-slate-900 leading-tight">Jayple</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
                 A grooming appointment booking platform designed for salons, barbershops, and personal care professionals. Jayple helps grooming businesses manage appointments digitally, reduce walk-in confusion, and deliver a smooth booking experience.
@@ -193,10 +222,40 @@ export default function Home() {
           </div>
 
           {/* Genfess */}
-          <div id="genfess" ref={genfessRef} className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+          <div id="genfess" ref={genfessRef} className="grid md:grid-cols-2 gap-8 md:gap-24 items-center">
             <div className="order-2 md:order-1 hidden md:block" />
             <div className="order-1 md:order-2 space-y-8">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Incubated Product</span>
+              <div className="block md:hidden w-full h-52 rounded-xl overflow-hidden bg-[#1a1a2e] p-4 mt-4">
+                {/* Fake app header */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white text-xs font-bold tracking-wide">
+                    Genfess
+                  </span>
+                  <div className="w-6 h-6 rounded-full bg-purple-500" />
+                </div>
+                {/* Fake anonymous post cards */}
+                {[
+                  { w: "w-32", text: "Anonymous confession #4821" },
+                  { w: "w-24", text: "Campus poll · 142 votes" },
+                ].map((item, i) => (
+                  <div key={i} 
+                       className="bg-white/10 rounded-lg p-3 mb-2 flex items-start gap-2">
+                    <div className="w-6 h-6 rounded-full bg-purple-400/50 flex-shrink-0" />
+                    <div>
+                      <div className={`${item.w} h-2 bg-white/40 rounded mb-1`} />
+                      <span className="text-white/40 text-[10px]">
+                        {item.text}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+                {/* Fake input bar */}
+                <div className="w-full bg-white/10 rounded-lg px-3 py-2 flex items-center gap-2 mt-1">
+                  <div className="flex-1 h-2 bg-white/20 rounded" />
+                  <div className="w-5 h-5 rounded-full bg-purple-500" />
+                </div>
+              </div>
               <h2 className="text-slate-900 leading-tight">Genfess</h2>
               <p className="text-lg text-slate-600 leading-relaxed font-medium">
                 A private, anonymous campus interaction platform built for college communities. Genfess allows students to express thoughts, confessions, and opinions anonymously within a controlled college environment.
@@ -239,7 +298,7 @@ export default function Home() {
       {/* SECTION 3A — JAYPLE PORTFOLIO */}
       <section 
         id="jayple-portfolio" 
-        className="w-full py-32 md:py-48 px-4 bg-white"
+        className="w-full py-10 md:py-48 px-4 bg-white"
         onMouseEnter={() => setActiveItem({
           title: "Jayple Launcher",
           description: "Digital storefront for the grooming appointment platform.",
@@ -247,10 +306,39 @@ export default function Home() {
         })}
         onMouseLeave={() => setActiveItem(null)}
       >
-        <div ref={jayplePortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div ref={jayplePortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-24 items-center">
           <div className="space-y-8">
             <div className="space-y-3">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Product Portfolio</span>
+              <div className="block md:hidden w-full h-52 rounded-xl overflow-hidden bg-[#0f1f2e] p-4 mt-4">
+                {/* Fake app header */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white text-xs font-bold tracking-wide">
+                    Jayple
+                  </span>
+                  <div className="w-6 h-6 rounded-full bg-orange-500" />
+                </div>
+                {/* Fake booking card */}
+                <div className="bg-white/10 rounded-lg p-3 mb-2">
+                  <div className="w-24 h-2 bg-white/40 rounded mb-2" />
+                  <div className="w-16 h-2 bg-white/20 rounded" />
+                </div>
+                {/* Fake time slots */}
+                <div className="flex gap-2 mb-3">
+                  {["10:00", "11:30", "2:00", "4:30"].map(t => (
+                    <div key={t} 
+                         className="bg-orange-500/80 rounded-md px-2 py-1">
+                      <span className="text-white text-[10px]">{t}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* Fake CTA */}
+                <div className="w-full bg-orange-500 rounded-lg py-2 flex items-center justify-center">
+                  <span className="text-white text-xs font-semibold">
+                    Book Appointment
+                  </span>
+                </div>
+              </div>
               <h2 className="text-slate-900 leading-tight">Jayple Launcher</h2>
             </div>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
@@ -283,7 +371,7 @@ export default function Home() {
       {/* SECTION 3B — GENFESS PORTFOLIO */}
       <section 
         id="genfess-portfolio" 
-        className="w-full py-32 md:py-48 px-4 bg-secondary-bg"
+        className="w-full py-10 md:py-48 px-4 bg-secondary-bg"
         onMouseEnter={() => setActiveItem({
           title: "Genfess Platform",
           description: "Anonymous campus interaction platform for college communities.",
@@ -291,11 +379,19 @@ export default function Home() {
         })}
         onMouseLeave={() => setActiveItem(null)}
       >
-        <div ref={genfessPortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div ref={genfessPortfolioRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-24 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
             <div className="space-y-3">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Product Portfolio</span>
+              <div className="block md:hidden w-full overflow-hidden rounded-xl mt-4 mb-6">
+                <img
+                  src="/GenfessLancher.png"
+                  alt="Genfess Platform mobile screenshot"
+                  className="w-full h-48 sm:h-56 object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
               <h2 className="text-slate-900 leading-tight">Genfess Platform</h2>
             </div>
             <p className="text-lg text-slate-600 leading-relaxed font-medium">
@@ -327,7 +423,7 @@ export default function Home() {
       {/* SECTION 4 — CLIENT SUCCESS STORY (Racksmadurai) */}
       <section 
         id="success" 
-        className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100"
+        className="w-full py-10 md:py-48 px-4 bg-white border-y border-slate-100"
         onMouseEnter={() => setActiveItem({
           title: "Racksmadurai",
           description: "Retail infrastructure & complex inventory management.",
@@ -335,10 +431,18 @@ export default function Home() {
         })}
         onMouseLeave={() => setActiveItem(null)}
       >
-        <div ref={successRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div ref={successRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-24 items-center">
           <div className="space-y-8">
             <div className="space-y-3">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Case Study</span>
+              <div className="block md:hidden w-full overflow-hidden rounded-xl mt-4 mb-6">
+                <img
+                  src="/racks.png"
+                  alt="Racksmadurai mobile screenshot"
+                  className="w-full h-48 sm:h-56 object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
               <h2 className="italic text-slate-900 leading-tight">Racksmadurai</h2>
             </div>
 
@@ -372,7 +476,7 @@ export default function Home() {
       {/* SECTION 4B — FRUIT HOUSE CASE STUDY */}
       <section 
         id="fruithouse" 
-        className="w-full py-32 md:py-48 px-4 bg-secondary-bg"
+        className="w-full py-10 md:py-48 px-4 bg-secondary-bg"
         onMouseEnter={() => setActiveItem({
           title: "Fruit House",
           description: "Fresh, healthy food with seamless WhatsApp ordering.",
@@ -380,11 +484,19 @@ export default function Home() {
         })}
         onMouseLeave={() => setActiveItem(null)}
       >
-        <div ref={fruithouseRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div ref={fruithouseRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-24 items-center">
           <div className="hidden md:block" />
           <div className="space-y-8">
             <div className="space-y-3">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Case Study</span>
+              <div className="block md:hidden w-full overflow-hidden rounded-xl mt-4 mb-6">
+                <img
+                  src="/fruithouse.png"
+                  alt="Fruit House mobile screenshot"
+                  className="w-full h-48 sm:h-56 object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
               <h2 className="italic text-slate-900 leading-tight">Fruit House</h2>
             </div>
 
@@ -417,7 +529,7 @@ export default function Home() {
       {/* SECTION 4C — VKS DECORATION CASE STUDY */}
       <section 
         id="vks" 
-        className="w-full py-32 md:py-48 px-4 bg-white border-y border-slate-100"
+        className="w-full py-10 md:py-48 px-4 bg-white border-y border-slate-100"
         onMouseEnter={() => setActiveItem({
           title: "VKS Decoration",
           description: "Wedding & floral decor with local digital ordering.",
@@ -425,10 +537,18 @@ export default function Home() {
         })}
         onMouseLeave={() => setActiveItem(null)}
       >
-        <div ref={vksRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div ref={vksRef} className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-24 items-center">
           <div className="space-y-8">
             <div className="space-y-3">
               <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Case Study</span>
+              <div className="block md:hidden w-full overflow-hidden rounded-xl mt-4 mb-6">
+                <img
+                  src="/vks.png"
+                  alt="VKS Decoration mobile screenshot"
+                  className="w-full h-48 sm:h-56 object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
               <h2 className="italic text-slate-900 leading-tight">VKS Decoration</h2>
             </div>
 
@@ -465,7 +585,7 @@ export default function Home() {
       </div>
 
       {/* SECTION 5 — ABOUT + FINAL CTA */}
-      <section id="about" className="w-full py-32 px-4 text-center bg-white">
+      <section id="about" className="w-full py-10 md:py-32 px-4 text-center bg-white">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="space-y-8">
             <div className="inline-block px-4 py-1.5 rounded-full border border-slate-200 bg-slate-50 text-slate-900 text-sm font-medium">

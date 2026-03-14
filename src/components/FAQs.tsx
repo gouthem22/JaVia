@@ -34,8 +34,8 @@ export default function FAQs() {
     };
 
     return (
-        <section id="faqs" className="w-full py-24 md:py-32 px-4 bg-secondary-bg">
-            <div className="max-w-4xl mx-auto space-y-16">
+        <section id="faqs" className="w-full py-10 md:py-32 px-4 bg-secondary-bg">
+            <div className="max-w-4xl mx-auto space-y-8 md:space-y-16">
                 <div className="text-center space-y-4">
                     <span className="text-slate-500 font-bold tracking-widest uppercase text-sm">FAQs</span>
                     <h2 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">

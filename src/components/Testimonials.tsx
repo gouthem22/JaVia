@@ -18,7 +18,7 @@ const featuredReviews = [
         role: "Client",
         text: "Created a portfolio by Javia Ventures, Very good service. Best website development option in trichy",
         rating: 5,
-        date: "2 reviews · 1 photo",
+        date: "Recently",
         images: ["/reviews/john/img.png"],
         platform: "Google"
     },
@@ -37,8 +37,8 @@ const GOOGLE_REVIEWS_URL = "https://www.google.com/search?sca_esv=04b991333a83f5
 
 export default function Testimonials() {
     return (
-        <section id="testimonials" className="w-full py-24 md:py-32 px-4 bg-[#F8FAFC]">
-            <div className="max-w-6xl mx-auto space-y-20">
+        <section id="testimonials" className="w-full py-10 md:py-32 px-4 bg-[#F8FAFC]">
+            <div className="max-w-6xl mx-auto space-y-10 md:space-y-20">
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
                     <span className="text-slate-500 font-bold tracking-[0.2em] uppercase text-xs">Testimonials</span>
