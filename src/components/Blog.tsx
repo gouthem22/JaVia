@@ -21,7 +21,7 @@ export default function Blog() {
                     </div>
                     <Link
                         href="/blog"
-                        className="px-4 py-2 border border-gray-200 text-gray-600 text-sm font-medium rounded-full hover:border-orange-400 hover:text-orange-500 transition-all mb-2"
+                        className="px-4 py-2 border border-gray-200 text-gray-600 text-sm font-medium rounded-full hover:border-[#0f1f2e] hover:text-[#0f1f2e] transition-all mb-2"
                     >
                         View All Articles
                     </Link>
@@ -31,16 +31,18 @@ export default function Blog() {
                     {displayedPosts.map((post) => (
                         <div
                             key={post.slug}
-                            className="border border-gray-200 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full overflow-hidden"
+                            className="group border border-gray-200 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full overflow-hidden"
                         >
-                            <img
-                                src={post.coverImage}
-                                alt={post.title}
-                                className="w-full h-44 object-cover"
-                            />
+                            <div className="overflow-hidden">
+                                <img
+                                    src={post.coverImage}
+                                    alt={post.title}
+                                    className="w-full h-44 object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                            </div>
                             <div className="p-6 flex flex-col flex-grow">
-                                <div className="bg-gray-50 rounded-lg p-2 w-fit">
-                                    <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">
+                                <div className="bg-gray-100 rounded-lg p-2 w-fit">
+                                    <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">
                                         {post.category}
                                     </span>
                                 </div>
@@ -49,7 +51,7 @@ export default function Blog() {
                                     <Clock size={12} className="stroke-[1.5px]" /> {post.readTime} · {post.date}
                                 </p>
 
-                                <h3 className="text-lg font-bold text-[#0f1f2e] mt-2 leading-snug group-hover:text-orange-500 transition-colors">
+                                <h3 className="text-lg font-bold text-[#0f1f2e] mt-2 leading-snug group-hover:text-gray-600 transition-colors">
                                     {post.title}
                                 </h3>
 
@@ -59,7 +61,7 @@ export default function Blog() {
 
                                 <Link
                                     href={`/blog/${post.slug}`}
-                                    className="mt-8 border border-gray-200 rounded-full px-3 py-1.5 text-[11px] font-semibold text-gray-500 hover:text-orange-500 hover:border-orange-300 w-fit flex items-center gap-1.5 transition-all"
+                                    className="mt-8 border border-gray-200 rounded-full px-3 py-1.5 text-[11px] font-semibold text-gray-500 hover:text-[#0f1f2e] hover:border-gray-400 w-fit flex items-center gap-1.5 transition-all"
                                 >
                                     Read Article <ArrowUpRight size={12} strokeWidth={2.5} />
                                 </Link>

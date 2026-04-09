@@ -133,7 +133,7 @@ export default function Footer() {
                     {/* SEO Tagline */}
                     <p className="text-xs text-gray-400 text-center mt-2">
                         © 2026 JaVia Ventures · 
-                        <a href="https://javia.studio" className="hover:text-orange-500 transition-colors mx-1">
+                        <a href="https://javia.studio" className="hover:text-slate-900 transition-colors mx-1">
                             javia.studio
                         </a> 
                         · Enterprise Web & SaaS Development, India

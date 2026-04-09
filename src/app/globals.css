@@ -88,7 +88,7 @@ h4 {
   --fluid-h2: clamp(1.75rem, 4vw + 1rem, 4.5rem);
   --fluid-h3: clamp(1.5rem, 2vw + 1rem, 2.5rem);
   --fluid-p: clamp(0.9375rem, 0.5vw + 0.75rem, 1.125rem);
-  
+
   /* Safe spacing for navbar */
   --navbar-height: 80px;
   --section-spacing: clamp(4rem, 10vh, 10rem);
@@ -162,8 +162,17 @@ p {
 }
 
 @keyframes pulse-subtle {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.02); }
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
 }
 
 .screen-state {
@@ -175,6 +184,7 @@ p {
 
 /* 📱 Device Ratio Adjustments */
 @media (max-aspect-ratio: 4/3) {
+
   /* For taller screens (phones/tablets) */
   .section-padding {
     padding-top: calc(var(--section-spacing) * 0.8);
@@ -183,12 +193,17 @@ p {
 }
 
 @media (min-width: 769px) and (max-width: 1280px) {
+
   /* Tablet/Small Laptop specific tweaks */
-  h1 { font-size: calc(var(--fluid-h1) * 0.85); }
+  h1 {
+    font-size: calc(var(--fluid-h1) * 0.85);
+  }
 }
 
 /* Improved container constraints */
-.max-w-7xl, .max-w-6xl, .max-w-4xl {
+.max-w-7xl,
+.max-w-6xl,
+.max-w-4xl {
   width: 100%;
   padding-left: clamp(1rem, 5vw, 3rem);
   padding-right: clamp(1rem, 5vw, 3rem);
@@ -197,7 +212,10 @@ p {
 }
 
 /* Ensure long words don't break layout */
-p, h1, h2, h3 {
+p,
+h1,
+h2,
+h3 {
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -207,8 +225,8 @@ p, h1, h2, h3 {
   position: relative;
   margin: 2.5rem 0;
   padding: 2rem 2rem 2rem 2.5rem;
-  border-left: 3px solid #b45309;
-  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 50%, #fef3c7 100%);
+  border-left: 4px solid #334155;
+  background: linear-gradient(135deg, #e2e8f0 0%, #dde4ec 50%, #e8edf4 100%);
   border-radius: 0 1.25rem 1.25rem 0;
 }
 
@@ -219,7 +237,7 @@ p, h1, h2, h3 {
   left: 0.75rem;
   font-family: var(--font-playfair), Georgia, serif;
   font-size: 3.5rem;
-  color: #d97706;
+  color: #64748b;
   line-height: 1;
   pointer-events: none;
 }
@@ -228,8 +246,8 @@ p, h1, h2, h3 {
   font-family: var(--font-playfair), Georgia, serif;
   font-size: clamp(1.05rem, 1.2vw + 0.5rem, 1.2rem);
   font-style: italic;
-  color: #1e293b;
-  font-weight: 500;
+  color: #0f172a;
+  font-weight: 600;
   line-height: 1.75;
   margin: 0;
   letter-spacing: -0.01em;

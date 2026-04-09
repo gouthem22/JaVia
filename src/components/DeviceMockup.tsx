@@ -33,7 +33,8 @@ export default function DeviceMockup({ activeItem }: DeviceMockupProps) {
     const laptopRef = useRef<HTMLDivElement>(null);
     const [cycleIndex, setCycleIndex] = useState(0);
 
-    // Auto-cycle logic for mobile and default state
+    // Auto-cycle logic — ONLY for the phone mockup in mobile/default state
+    // The laptop mockup uses GSAP scroll-triggered states instead
     useEffect(() => {
         if (!activeItem) {
             const interval = setInterval(() => {
@@ -43,7 +44,9 @@ export default function DeviceMockup({ activeItem }: DeviceMockupProps) {
         }
     }, [activeItem]);
 
-    const displayItem = activeItem || defaultItems[cycleIndex];
+    // displayItem is ONLY used for explicit hover interactions (activeItem set)
+    // When activeItem is null, the laptop falls back to GSAP scroll-triggered screens
+    const displayItem = activeItem;
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -260,24 +263,12 @@ export default function DeviceMockup({ activeItem }: DeviceMockupProps) {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-8 bg-slate-900 rounded-b-2xl z-20" />
                 <div className="device-screen absolute inset-0 bg-white rounded-[2.2rem] overflow-hidden">
                     {/* PRODUCTS STATE — Jayple */}
-                    <div className="screen-state phone-products-state absolute inset-0 p-6 flex flex-col gap-6 opacity-1">
-                        <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center">
-                                <div className="w-4 h-4 border-2 border-white rounded-sm" />
-                            </div>
-                            <div className="h-4 w-20 bg-slate-900/10 rounded-full" />
-                        </div>
-                        <div className="flex gap-4 h-full">
-                            <div className="w-12 bg-slate-50 border border-slate-100 rounded-xl flex flex-col gap-3 p-2">
-                                <div className="w-8 h-8 rounded-lg bg-slate-200" />
-                                <div className="w-8 h-8 rounded-lg bg-slate-100" />
-                                <div className="w-8 h-8 rounded-lg bg-slate-100" />
-                            </div>
-                            <div className="flex-1 flex flex-col gap-4">
-                                <div className="h-32 bg-slate-50 border border-slate-100 rounded-2xl" />
-                                <div className="h-20 bg-slate-50 border border-slate-200 rounded-2xl" />
-                            </div>
-                        </div>
+                    <div className="screen-state phone-products-state absolute inset-0 opacity-1">
+                        <img
+                            src="/jayplefront.jpeg"
+                            alt="Jayple App Mockup"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
 
                     {/* GENFESS STATE — Exact Image */}
@@ -305,54 +296,50 @@ export default function DeviceMockup({ activeItem }: DeviceMockupProps) {
                     
                     {/* Screen content area */}
                     <div className="laptop-screen absolute inset-0 bg-white overflow-hidden">
-                        {/* Static/Scroll-based states (Fallback) */}
+                        {/* Static/Scroll-based states — controlled by GSAP ScrollTrigger */}
                         <div className="absolute inset-0 z-0">
-                            <div className="screen-state laptop-jayple-portfolio-state absolute inset-0 opacity-1 bg-slate-50 flex items-center justify-center p-8">
-                                <div className="text-center space-y-4">
-                                    <div className="w-12 h-12 bg-slate-200 rounded-full mx-auto" />
-                                    <div className="h-4 w-32 bg-slate-200 rounded mx-auto" />
-                                </div>
+                            <div className="screen-state laptop-jayple-portfolio-state absolute inset-0 opacity-1 bg-slate-50">
+                                <img src="/jayplefront.jpeg" alt="Jayple Launcher" className="w-full h-full object-cover object-top" />
                             </div>
                             <div className="screen-state laptop-genfess-portfolio-state absolute inset-0 opacity-0 bg-slate-100">
-                                <img src="/GenfessLancher.png" className="w-full h-full object-cover" />
+                                <img src="/GenfessLancher.png" alt="Genfess Platform" className="w-full h-full object-cover" />
                             </div>
                             <div className="screen-state laptop-case-state absolute inset-0 opacity-0">
-                                <img src="/racks.png" className="w-full h-full object-cover" />
+                                <img src="/racks.png" alt="Racksmadurai" className="w-full h-full object-cover" />
                             </div>
                             <div className="screen-state laptop-fruithouse-state absolute inset-0 opacity-0">
-                                <img src="/fruithouse.png" className="w-full h-full object-cover" />
+                                <img src="/fruithouse.png" alt="Fruit House" className="w-full h-full object-cover" />
                             </div>
                             <div className="screen-state laptop-vks-state absolute inset-0 opacity-0">
-                                <img src="/vks.png" className="w-full h-full object-cover" />
+                                <img src="/vks.png" alt="VKS Decoration" className="w-full h-full object-cover" />
                             </div>
                         </div>
 
-                        {/* DYNAMIC OVERLAY (Interactive/Auto-cycle) */}
+                        {/* DYNAMIC OVERLAY — Only shown on explicit hover (activeItem set) */}
                         <AnimatePresence mode="wait">
-                            <motion.div
-                                key={displayItem?.title}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                                className="absolute inset-0 bg-white z-10"
-                            >
-                                {displayItem && (
+                            {displayItem && (
+                                <motion.div
+                                    key={displayItem.title}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.35, ease: "easeOut" }}
+                                    className="absolute inset-0 bg-white z-10"
+                                >
                                     <img
                                         src={
                                             displayItem.title === "Racksmadurai" ? "/racks.png" :
                                             displayItem.title === "VKS Decoration" ? "/vks.png" :
                                             displayItem.title === "Fruit House" ? "/fruithouse.png" :
                                             displayItem.title === "Genfess Platform" ? "/GenfessLancher.png" :
-                                            displayItem.title === "Jayple Launcher" ? "/GenfessLancher.png" :
-                                            "/racks.png" // Fallback
+                                            displayItem.title === "Jayple Launcher" ? "/jayplefront.jpeg" :
+                                            "/jayplefront.jpeg"
                                         }
                                         alt={`${displayItem.title} screenshot`}
                                         className="w-full h-full object-cover object-top"
-                                        loading="lazy"
                                     />
-                                )}
-                            </motion.div>
+                                </motion.div>
+                            )}
                         </AnimatePresence>
                     </div>
                 </div>

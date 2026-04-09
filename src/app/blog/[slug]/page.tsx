@@ -30,7 +30,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   const relatedPosts = blogPosts.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-[#faf9f7]">
+    <main className="min-h-screen bg-[#f4f6f8]">
       {/* ═══ HERO ═══ */}
       <section className="relative w-full h-[420px] md:h-[520px] flex items-end overflow-hidden">
         <img
@@ -41,31 +41,31 @@ export default async function BlogPostPage({ params }: PageProps) {
         />
         <div 
           className="absolute inset-0 z-10" 
-          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.72))" }}
+          style={{ background: "linear-gradient(to bottom, rgba(15,31,46,0.40), rgba(15,31,46,0.80))" }}
         />
 
         <div className="relative w-full max-w-5xl mx-auto px-6 md:px-12 pb-12 md:pb-20 pt-32 z-20">
           <div className="space-y-6 max-w-3xl">
-            <span className="inline-block px-4 py-1.5 bg-amber-500/90 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-[0.2em] rounded-full">
+            <span className="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-[0.2em] rounded-full border border-white/20">
               {post.category}
             </span>
 
             <h1
-              className="!text-white leading-[1.1] font-semibold"
-              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
+              className="leading-[1.1] font-semibold"
+              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#ffffff" }}
             >
               {post.title}
             </h1>
 
-            <p className="text-amber-100/70 text-base md:text-lg leading-relaxed font-normal max-w-2xl" style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic" }}>
+            <p className="text-white/60 text-base md:text-lg leading-relaxed font-normal max-w-2xl" style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic" }}>
               {post.subtitle}
             </p>
 
-            <div className="flex flex-wrap items-center gap-5 text-amber-100/50 text-xs font-semibold uppercase tracking-widest pt-2">
+            <div className="flex flex-wrap items-center gap-5 text-white/40 text-xs font-semibold uppercase tracking-widest pt-2">
               <span className="flex items-center gap-1.5"><User size={13} /> {post.author}</span>
-              <span className="w-1 h-1 rounded-full bg-amber-200/30" />
+              <span className="w-1 h-1 rounded-full bg-white/20" />
               <span className="flex items-center gap-1.5"><Calendar size={13} /> {post.date}</span>
-              <span className="w-1 h-1 rounded-full bg-amber-200/30" />
+              <span className="w-1 h-1 rounded-full bg-white/20" />
               <span className="flex items-center gap-1.5"><Clock size={13} /> {post.readTime}</span>
             </div>
           </div>
@@ -73,17 +73,17 @@ export default async function BlogPostPage({ params }: PageProps) {
       </section>
 
       {/* ═══ STICKY NAV ═══ */}
-      <div className="sticky top-0 z-40 bg-[#faf9f7]/90 backdrop-blur-xl border-b border-stone-200/60">
+      <div className="sticky top-0 z-40 bg-[#f4f6f8]/90 backdrop-blur-xl border-b border-gray-200/60">
         <div className="max-w-5xl mx-auto px-6 md:px-12 py-3.5 flex items-center justify-between">
           <Link
             href="/#blog"
-            className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 text-[13px] font-semibold transition-colors"
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-[#0f1f2e] text-[13px] font-semibold transition-colors"
           >
             <ArrowLeft size={15} /> Back to Home
           </Link>
           <Link
             href="/blog"
-            className="text-stone-400 hover:text-amber-700 text-[13px] font-semibold transition-colors"
+            className="text-gray-400 hover:text-[#0f1f2e] text-[13px] font-semibold transition-colors"
           >
             All Articles →
           </Link>
@@ -97,7 +97,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div key={i} className="mb-14 last:mb-0">
               {section.heading && (
                 <h2
-                  className="text-stone-900 mb-6 font-semibold leading-tight"
+                  className="text-[#0f1f2e] mb-6 font-semibold leading-tight"
                   style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.5rem, 2.5vw, 2rem)" }}
                 >
                   {section.heading}
@@ -105,7 +105,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               )}
 
               {section.body.map((para, j) => (
-                <p key={j} className="text-stone-600 leading-[1.85] font-normal mb-5 last:mb-0" style={{ fontSize: "clamp(1rem, 0.5vw + 0.875rem, 1.125rem)" }}>
+                <p key={j} className="text-gray-600 leading-[1.85] font-normal mb-5 last:mb-0" style={{ fontSize: "clamp(1rem, 0.5vw + 0.875rem, 1.125rem)" }}>
                   {para}
                 </p>
               ))}
@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               )}
 
               {section.image && (
-                <figure className="my-10 -mx-4 md:-mx-12 lg:-mx-20">
+                <figure className="my-10">
                   <div className="overflow-hidden rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
                     <img
                       src={section.image.src}
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     />
                   </div>
                   {section.image.caption && (
-                    <figcaption className="text-center text-stone-400 text-[13px] mt-4 font-medium px-4 md:px-12 lg:px-20 italic">
+                    <figcaption className="text-center text-gray-400 text-[13px] mt-4 font-medium italic">
                       {section.image.caption}
                     </figcaption>
                   )}
@@ -138,28 +138,28 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         {/* ═══ END DIVIDER ═══ */}
         <div className="max-w-[680px] mx-auto mt-16 mb-16 flex items-center justify-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-amber-300" />
-          <span className="w-2 h-2 rounded-full bg-amber-200" />
-          <span className="w-2 h-2 rounded-full bg-amber-300" />
+          <span className="w-2 h-2 rounded-full bg-gray-300" />
+          <span className="w-2 h-2 rounded-full bg-gray-200" />
+          <span className="w-2 h-2 rounded-full bg-gray-300" />
         </div>
 
         {/* ═══ CTA ═══ */}
         <div className="max-w-[680px] mx-auto">
-          <div className="p-10 md:p-14 rounded-[2rem] bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 text-center space-y-6">
+          <div className="p-10 md:p-14 rounded-[2rem] bg-gradient-to-br from-[#0f1f2e] via-[#162d42] to-[#1a3550] text-center space-y-6">
             <h3
-              className="text-amber-100 font-semibold"
-              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.25rem, 2vw, 1.75rem)" }}
+              className="font-semibold"
+              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.25rem, 2vw, 1.75rem)", color: "#ffffff" }}
             >
               Have a project in mind?
             </h3>
-            <p className="text-stone-300/70 text-sm md:text-base font-medium max-w-md mx-auto leading-relaxed">
+            <p className="text-sm md:text-base font-medium max-w-md mx-auto leading-relaxed" style={{ color: "rgba(203, 213, 225, 0.8)" }}>
               At JaVia Ventures, we build scalable digital products and enterprise-grade web platforms. Let&apos;s discuss how we can help your business grow.
             </p>
             <a
               href={`https://wa.me/919788995924?text=${encodeURIComponent(`Hi JaVia! I just read "${post.title}" and would love to discuss my project.`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-amber-500 text-stone-950 font-bold rounded-full hover:bg-amber-400 transition-all hover:-translate-y-0.5 text-sm tracking-wide"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-white text-[#0f1f2e] font-bold rounded-full hover:bg-gray-100 transition-all hover:-translate-y-0.5 text-sm tracking-wide"
             >
               Start a Conversation
             </a>
@@ -168,18 +168,18 @@ export default async function BlogPostPage({ params }: PageProps) {
       </article>
 
       {/* ═══ RELATED ARTICLES ═══ */}
-      <section className="border-t border-stone-200/5 bg-[#0c0a09]">
+      <section className="border-t border-gray-200/60 bg-[#0f1f2e]">
         <div className="max-w-6xl mx-auto px-6 md:px-12 py-20">
           <div className="flex items-center justify-between mb-12">
             <h3
-              className="text-white font-semibold"
-              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.25rem, 2vw, 1.75rem)" }}
+              className="font-semibold"
+              style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1.25rem, 2vw, 1.75rem)", color: "#ffffff" }}
             >
               Continue Reading
             </h3>
             <Link
               href="/blog"
-              className="text-gray-500 hover:text-orange-500 text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1"
+              className="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1"
             >
               All Articles <ArrowUpRight size={14} />
             </Link>
@@ -188,14 +188,14 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="grid md:grid-cols-3 gap-10">
             {relatedPosts.map((rPost) => (
               <Link key={rPost.slug} href={`/blog/${rPost.slug}`} className="group">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-5 bg-stone-900 border border-white/5">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-5 bg-[#162d42] border border-white/5">
                   <img
                     src={rPost.coverImage}
                     alt={rPost.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-100"
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="px-3 py-1 bg-orange-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider rounded-full">
+                    <span className="px-3 py-1 bg-white/10 backdrop-blur-sm text-white/80 text-[10px] font-bold uppercase tracking-wider rounded-full border border-white/10">
                       {rPost.category}
                     </span>
                   </div>
@@ -203,8 +203,8 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <div className="space-y-2.5">
                   <p className="text-gray-500 text-[11px] font-bold uppercase tracking-widest">{rPost.readTime} · {rPost.date}</p>
                   <h4
-                    className="!text-white group-hover:text-orange-400 transition-colors leading-snug font-semibold"
-                    style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
+                    className="group-hover:text-slate-300 transition-colors leading-snug font-semibold"
+                    style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(1rem, 1.2vw, 1.2rem)", color: "#ffffff" }}
                   >
                     {rPost.title}
                   </h4>
